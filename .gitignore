@@ -4,7 +4,6 @@ _site/
 .sass-cache/
 vendor/
 .bundle/
-Gemfile.lock
 node_modules/
 .DS_Store
 *.env

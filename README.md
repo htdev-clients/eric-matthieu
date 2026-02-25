@@ -115,6 +115,19 @@ All content is in **`_data/property.yml`** — no HTML editing needed for:
 
 ---
 
+## Cloudflare Pages — Deployment
+
+| Setting | Value |
+|---|---|
+| Framework preset | Jekyll |
+| Build command | `bundle exec jekyll build` |
+| Build output directory | `_site` |
+| Environment variable | `JEKYLL_ENV=production` |
+
+`Gemfile.lock` is committed intentionally — Cloudflare Pages uses it to pin gem versions and ensure reproducible builds. Do not add it back to `.gitignore`.
+
+---
+
 ## Phase 3 — Cloudflare Backend (Next)
 
 ### What needs building
