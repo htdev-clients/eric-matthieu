@@ -1,86 +1,74 @@
 {% assign p = site.data.property %}
 {% assign t = site.data.i18n[site.active_lang] %}
 {% if site.active_lang == 'en' %}
-  {% assign cgv_path = '/en/cgv' %}
+  {% assign cgv_path     = '/en/cgv' %}
   {% assign privacy_path = '/en/confidentialite' %}
   {% assign cookies_path = '/en/cookies' %}
 {% else %}
-  {% assign cgv_path = '/cgv' %}
+  {% assign cgv_path     = '/cgv' %}
   {% assign privacy_path = '/confidentialite' %}
   {% assign cookies_path = '/cookies' %}
 {% endif %}
-<footer id="contact" class="bg-[#1f1a16] text-stone">
-    <div class="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-3 gap-12">
+<!--
+  ═══════════════════════════════════════════════════════════
+  FOOTER — design this section from scratch per client.
+  ═══════════════════════════════════════════════════════════
+  Available data:
+    p.name
+    p.footer_tagline[site.active_lang]
+    p.social.instagram, p.social.facebook
+    p.location.address_line1, .address_line2
+    p.location.country[site.active_lang], .maps_url
+    p.contact.phone, p.contact.email
+    p.compliance.registration_number
 
-        <!-- Brand -->
-        <div class="space-y-4">
-            <p class="font-serif text-white text-3xl font-bold">{{ p.name }}.</p>
-            <p class="text-white/50 text-xs leading-relaxed max-w-xs">
-                {{ p.footer_tagline[site.active_lang] }}
-            </p>
-            <div class="flex gap-5 text-white/50 pt-2">
-                <a href="{{ p.social.instagram }}" target="_blank" rel="noopener noreferrer" class="hover:text-clay transition-colors" aria-label="Instagram">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5"/>
-                        <circle cx="12" cy="12" r="4"/>
-                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-                    </svg>
-                </a>
-                <a href="{{ p.social.facebook }}" target="_blank" rel="noopener noreferrer" class="hover:text-clay transition-colors" aria-label="Facebook">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
+  Legal paths (pre-computed for active language):
+    cgv_path, privacy_path, cookies_path
 
-        <!-- Address -->
-        <div class="space-y-4">
-            <span class="text-clay text-xs font-bold uppercase tracking-widest">{{ t.footer.address_heading }}</span>
-            <address class="not-italic text-white/80 font-serif text-lg leading-relaxed">
-                {{ p.location.address_line1 }},<br>
-                {{ p.location.address_line2 }},<br>
-                {{ p.location.country[site.active_lang] }}
-            </address>
-            <a href="{{ p.location.maps_url }}" target="_blank" rel="noopener noreferrer"
-               class="inline-flex items-center gap-2 text-xs text-clay hover:text-white transition-colors uppercase tracking-widest">
-                <i data-lucide="map-pin" class="w-3 h-3"></i> {{ t.footer.view_map }}
-            </a>
-        </div>
+  i18n keys:
+    t.footer.address_heading, t.footer.contact_heading
+    t.footer.view_map, t.footer.book_cta
+    t.footer.rights, t.footer.cgv, t.footer.privacy, t.footer.cookies
 
-        <!-- Contact -->
-        <div class="space-y-4">
-            <span class="text-clay text-xs font-bold uppercase tracking-widest">{{ t.footer.contact_heading }}</span>
-            <div class="space-y-3 text-white/80 font-serif text-lg">
-                <a href="tel:{{ p.contact.phone | remove: ' ' }}" class="flex items-center gap-3 hover:text-clay transition-colors">
-                    <i data-lucide="phone" class="w-4 h-4 text-clay"></i>
-                    <span dir="ltr">{{ p.contact.phone }}</span>
-                </a>
-                <a href="mailto:{{ p.contact.email }}" class="flex items-center gap-3 hover:text-clay transition-colors break-all">
-                    <i data-lucide="mail" class="w-4 h-4 text-clay"></i>
-                    {{ p.contact.email }}
-                </a>
-            </div>
-            <a href="#booking"
-               class="inline-block mt-4 px-6 py-3 border border-clay text-clay text-xs font-bold uppercase tracking-widest hover:bg-clay hover:text-white transition-colors">
-                {{ t.footer.book_cta }}
-            </a>
-        </div>
+  [data-lang-switch] buttons are required for language switching (scripts.html).
+  ═══════════════════════════════════════════════════════════
+-->
+<footer id="contact">
 
-    </div>
+  <div>
+    <p>{{ p.name }}</p>
+    <p>{{ p.footer_tagline[site.active_lang] }}</p>
+    <a href="{{ p.social.instagram }}" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="{{ p.social.facebook }}"  target="_blank" rel="noopener noreferrer">Facebook</a>
+  </div>
 
-    <div class="border-t border-white/10 py-5">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white/55 uppercase tracking-widest">
-            <span>© {{ 'now' | date: "%Y" }} {{ p.name }} · {{ t.footer.rights }}</span>
-            <span class="text-white/40 normal-case tracking-normal">{{ p.compliance.registration_number }} · Agréé CGT Wallonie</span>
-            <div class="flex flex-wrap gap-x-6 gap-y-2 items-center">
-                <a href="{{ cgv_path }}"     class="hover:text-white transition-colors">{{ t.footer.cgv }}</a>
-                <a href="{{ privacy_path }}" class="hover:text-white transition-colors">{{ t.footer.privacy }}</a>
-                <a href="{{ cookies_path }}" class="hover:text-white transition-colors">{{ t.footer.cookies }}</a>
-                <span class="text-white/30">|</span>
-                <a href="#" data-lang-switch="fr" class="{% if site.active_lang == 'fr' %}text-clay{% else %}hover:text-white{% endif %} transition-colors">FR</a>
-                <a href="#" data-lang-switch="en" class="{% if site.active_lang == 'en' %}text-clay{% else %}hover:text-white{% endif %} transition-colors">EN</a>
-            </div>
-        </div>
-    </div>
+  <div>
+    <span>{{ t.footer.address_heading }}</span>
+    <address>
+      {{ p.location.address_line1 }},<br>
+      {{ p.location.address_line2 }},<br>
+      {{ p.location.country[site.active_lang] }}
+    </address>
+    <a href="{{ p.location.maps_url }}" target="_blank" rel="noopener noreferrer">
+      {{ t.footer.view_map }}
+    </a>
+  </div>
+
+  <div>
+    <span>{{ t.footer.contact_heading }}</span>
+    <a href="tel:{{ p.contact.phone | remove: ' ' }}">{{ p.contact.phone }}</a>
+    <a href="mailto:{{ p.contact.email }}">{{ p.contact.email }}</a>
+    <a href="#booking">{{ t.footer.book_cta }}</a>
+  </div>
+
+  <div>
+    <span>© {{ 'now' | date: "%Y" }} {{ p.name }} · {{ t.footer.rights }}</span>
+    <span>{{ p.compliance.registration_number }}</span>
+    <a href="{{ cgv_path }}">{{ t.footer.cgv }}</a>
+    <a href="{{ privacy_path }}">{{ t.footer.privacy }}</a>
+    <a href="{{ cookies_path }}">{{ t.footer.cookies }}</a>
+    <a href="#" data-lang-switch="fr">FR</a>
+    <a href="#" data-lang-switch="en">EN</a>
+  </div>
+
 </footer>

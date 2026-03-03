@@ -62,16 +62,10 @@ Maximum occupancy is **{{ site.data.property.capacity.guests }} persons**.
 
 The Guest agrees to return the property in the condition in which it was found.
 
-## 10. Insurance and liability
-
-The service provider is covered by {{ site.data.property.compliance.insurance_provider }}.
-
-The Guest is responsible for any damage caused to the rented property. Taking out holiday insurance is strongly recommended.
-
-## 11. Personal data
+## 10. Personal data
 
 Data collected is processed in accordance with our [Privacy Policy](/en/confidentialite).
 
-## 12. Applicable law and disputes
+## 11. Applicable law and disputes
 
 *[To be completed: applicable law and competent jurisdiction.]*

@@ -62,16 +62,10 @@ La capacité maximale d'accueil est de **{{ site.data.property.capacity.guests }
 
 Le Locataire s'engage à restituer le logement dans l'état dans lequel il l'a trouvé.
 
-## 10. Assurance et responsabilité
-
-Le prestataire est couvert par {{ site.data.property.compliance.insurance_provider }}.
-
-Le Locataire est responsable des dégradations causées au bien loué. La souscription d'une assurance villégiature est vivement recommandée.
-
-## 11. Données personnelles
+## 10. Données personnelles
 
 Les données collectées sont traitées conformément à notre [Politique de confidentialité](/confidentialite).
 
-## 12. Droit applicable et litiges
+## 11. Droit applicable et litiges
 
 *[À compléter : droit applicable et juridiction compétente.]*

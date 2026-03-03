@@ -1,194 +1,142 @@
 # ─────────────────────────────────────────────────────────
-# Property data — Le Refuge Sauvage
+# Property data — fill all fields before designing the site.
 # Edit this file to update all content across the site.
 # Translatable fields have fr/en sub-keys.
 # Array items use label_en / text_en / alt_en etc. for English variants.
 # ─────────────────────────────────────────────────────────
 
-name:       "Le Refuge Sauvage"
-short_name: "Le Refuge"
+name:       "REPLACE_ME"        # e.g. "Domaine des Loups"
+short_name: "REPLACE_ME"        # e.g. "Le Domaine" — used in hero h1
 
 tagline:
-  fr: "Chalet & Forêt — Ardennes Belges"
-  en: "Chalet & Forest — Belgian Ardennes"
+  fr: "REPLACE_ME"              # e.g. "Chalet & Forêt — Ardennes Belges"
+  en: "REPLACE_ME"
 
 subtitle:
-  fr: "Ardennes Belges · Séjour nature"
-  en: "Belgian Ardennes · Nature retreat"
+  fr: "REPLACE_ME"              # short line above hero title
+  en: "REPLACE_ME"
 
 description:
-  fr: "Un chalet en bois dans les Ardennes belges — pour souffler, se promener, et profiter du temps qui passe différemment."
-  en: "A timber chalet in the Belgian Ardennes — to unwind, hike, and enjoy time passing at a different pace."
+  fr: "REPLACE_ME"              # 1–2 sentence property description
+  en: "REPLACE_ME"
 
 intro:
-  fr: "Le Refuge Sauvage se trouve au cœur des Ardennes belges, entouré d'environ deux hectares de forêt. C'est un endroit calme et confortable, loin de l'agitation du quotidien."
-  en: "Le Refuge Sauvage sits at the heart of the Belgian Ardennes, surrounded by some two hectares of forest. It is a calm and comfortable place, far from the hustle of everyday life."
+  fr: "REPLACE_ME"              # longer intro paragraph (presentation section)
+  en: "REPLACE_ME"
 
 footer_tagline:
-  fr: "Chalet en plein cœur des Ardennes Belges. Une retraite sauvage, loin du bruit du monde."
-  en: "A chalet in the heart of the Belgian Ardennes. A wild retreat, far from the noise of the world."
+  fr: "REPLACE_ME"              # short evocative phrase for the footer
+  en: "REPLACE_ME"
 
 hero_image:     "/assets/images/hero.jpg"
 hero_image_alt:
-  fr: "Chalet dans la forêt des Ardennes"
-  en: "Chalet in the Ardennes forest"
+  fr: "REPLACE_ME"
+  en: "REPLACE_ME"
 
 # ── Capacity ────────────────────────────────────────────
 capacity:
-  guests:    6
-  bedrooms:  3
-  bathrooms: 2
-  area_m2:   120
-  land_ha:   2
+  guests:    0      # REPLACE — must match MAX_GUESTS in wrangler.toml
+  bedrooms:  0      # REPLACE
+  bathrooms: 0      # REPLACE
+  area_m2:   0      # REPLACE
+  land_ha:   0      # REPLACE (omit or set to 0 if not applicable)
 
 # ── Check-in / Check-out ─────────────────────────────────
-checkin_time:  "16h00"
-checkout_time: "11h00"
+checkin_time:  "REPLACE_ME"     # e.g. "16h00"
+checkout_time: "REPLACE_ME"     # e.g. "11h00"
 
 # ── Pricing ─────────────────────────────────────────────
 pricing:
-  per_night: 150
+  per_night: 0      # REPLACE — must match PRICE_PER_NIGHT in wrangler.toml
   currency:  "€"
   note:
-    fr: "Taxe de séjour & frais de ménage inclus"
-    en: "Tourist tax & cleaning fees included"
+    fr: "REPLACE_ME"            # e.g. "Taxes & frais de ménage inclus"
+    en: "REPLACE_ME"
 
 # ── Location ────────────────────────────────────────────
 location:
-  address_line1: "Lieu-dit Le Bois Clair"
-  address_line2: "6900 Marche-en-Famenne"
+  address_line1: "REPLACE_ME"   # street / lieu-dit
+  address_line2: "REPLACE_ME"   # postal code + city
   country:
-    fr: "Belgique"
-    en: "Belgium"
-  country_code:  "BE"
-  region:        "Ardennes Belges"
-  maps_url:      "https://maps.google.com"
+    fr: "REPLACE_ME"            # e.g. "Belgique"
+    en: "REPLACE_ME"            # e.g. "Belgium"
+  country_code:  "BE"           # ISO 3166-1 alpha-2
+  region:        "REPLACE_ME"   # e.g. "Ardennes Belges"
+  maps_url:      "REPLACE_ME"   # Google Maps URL
 
 # ── Contact ─────────────────────────────────────────────
 contact:
-  owner_name: "Laurent Marchal"
-  email:      "bonjour@refugesauvage.be"
-  phone:      "+32 475 12 34 56"
+  owner_name: "REPLACE_ME"      # full name — used in CGV
+  email:      "REPLACE_ME"      # must match OWNER_EMAIL in wrangler.toml
+  phone:      "REPLACE_ME"      # e.g. "+32 475 00 00 00"
 
 # ── Social ──────────────────────────────────────────────
 social:
-  instagram: "#"
-  facebook:  "#"
+  instagram: "#"                # URL or "#" if not used
+  facebook:  "#"                # URL or "#" if not used
 
 # ── Belgian Compliance ──────────────────────────────────
 compliance:
-  registration_number: "N° ETA-XXXX-XXXX"
+  registration_number: "REPLACE_ME"   # e.g. "N° ETA-XXXX-XXXX"
   registration_body:   "Commissariat Général au Tourisme de Wallonie"
-  insurance_provider:  "Lodge Protect"
-  insurance_note:      "Assurance responsabilité civile & abandon de recours inclus"
   payment_note:        "Paiement en ligne sécurisé via Stripe. Aucune donnée bancaire stockée."
 
 # ── Concept Sections ────────────────────────────────────
+# Two sections shown in presentation.html: interior (first) and exterior (last).
 concept:
   - number:      "01"
-    label:       "L'Intérieur"
-    label_en:    "The Interior"
-    title:       "Chaleureux et bien équipé"
-    title_en:    "Warm and well-equipped"
+    label:       "REPLACE_ME"         # e.g. "L'Intérieur"
+    label_en:    "REPLACE_ME"         # e.g. "The Interior"
+    title:       "REPLACE_ME"
+    title_en:    "REPLACE_ME"
     description: >
-      Grand salon avec une belle baie vitrée, un poêle à bois pour les soirées fraîches, et une cuisine
-      complète pour cuisiner tranquillement. L'intérieur est simple et confortable — on n'a pas voulu
-      en faire trop, juste ce qu'il faut pour se sentir vraiment chez soi.
+      REPLACE_ME
     description_en: >
-      Spacious living room with large glazed doors, a wood stove for cooler evenings, and a fully equipped
-      kitchen for cooking at your own pace. The interior is simple and comfortable — nothing overdone,
-      just what you need to feel truly at home.
-    image:        "/assets/images/bedroom-1.jpg"
-    image_alt:    "Salon du chalet avec baie vitrée et poêle à bois"
-    image_alt_en: "Chalet living room with glass wall and wood stove"
-    image2:       "/assets/images/bedroom-2.jpg"
-    image_alt2:   "Chambre cosy en bois avec literie blanche"
-    image_alt2_en: "Cosy wooden bedroom with white bedding"
-    image3:       "/assets/images/kitchen.jpg"
-    image_alt3:   "Cuisine entièrement équipée du chalet"
-    image_alt3_en: "Fully equipped chalet kitchen"
+      REPLACE_ME
+    image:        "/assets/images/interior.jpg"
+    image_alt:    "REPLACE_ME"
+    image_alt_en: "REPLACE_ME"
     reverse:      false
     features:
-      - { icon: "flame",     text: "Poêle scandinave en fonte",     text_en: "Cast-iron Scandinavian stove" }
-      - { icon: "book-open", text: "Bibliothèque & jeux de société", text_en: "Library & board games" }
-      - { icon: "wifi-off",  text: "Sans WiFi — reconnexion totale", text_en: "No WiFi — total reconnection" }
-      - { icon: "coffee",    text: "Cuisine entièrement équipée",    text_en: "Fully equipped kitchen" }
+      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
+      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
+      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
+      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
 
   - number:      "02"
-    label:       "L'Extérieur"
-    label_en:    "The Outdoors"
-    title:       "La forêt commence au jardin"
-    title_en:    "The forest starts at the garden"
+    label:       "REPLACE_ME"         # e.g. "L'Extérieur"
+    label_en:    "REPLACE_ME"         # e.g. "The Outdoors"
+    title:       "REPLACE_ME"
+    title_en:    "REPLACE_ME"
     description: >
-      Le chalet donne directement sur un sentier balisé. En vingt minutes à pied, on rejoint la
-      rivière. Autour, c'est la forêt des Ardennes — des cerfs le matin, le calme tout le temps.
-      Idéal pour randonner, se promener, ou ne rien faire du tout.
+      REPLACE_ME
     description_en: >
-      The chalet opens directly onto a marked trail. A twenty-minute walk brings you to the river.
-      All around, the Ardennes forest — deer in the morning, quiet all the time. Perfect for hiking,
-      strolling, or doing absolutely nothing at all.
-    image:        "/assets/images/living-room.jpg"
-    image_alt:    "Vue sur la forêt des Ardennes depuis le chalet"
-    image_alt_en: "View of the Ardennes forest from the chalet"
-    image2:       "/assets/images/forest.jpg"
-    image_alt2:   "Terrasse en bois entourée de forêt"
-    image_alt2_en: "Wooden terrace surrounded by forest"
-    image3:       "/assets/images/mountain.jpg"
-    image_alt3:   "Sentier de randonnée en forêt ardennaise"
-    image_alt3_en: "Hiking trail in the Ardennes forest"
+      REPLACE_ME
+    image:        "/assets/images/exterior.jpg"
+    image_alt:    "REPLACE_ME"
+    image_alt_en: "REPLACE_ME"
     reverse:      true
     features:
-      - { icon: "footprints", text: "Sentiers de randonnée balisés", text_en: "Marked hiking trails" }
-      - { icon: "waves",      text: "Lacs & rivières à proximité",   text_en: "Lakes & rivers nearby" }
-      - { icon: "mountain",   text: "Points de vue panoramiques",    text_en: "Panoramic viewpoints" }
-      - { icon: "tree-pine",  text: "2 hectares de terrain privé",   text_en: "2 hectares of private land" }
+      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
+      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
+      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
+      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
 
 # ── Amenities ───────────────────────────────────────────
+# Icon names from Lucide: https://lucide.dev/icons
 amenities:
-  - { icon: "bed-double",       label: "3 Chambres",           label_en: "3 Bedrooms" }
-  - { icon: "bath",             label: "2 Salles de bain",     label_en: "2 Bathrooms" }
-  - { icon: "users",            label: "Jusqu'à 6 personnes",  label_en: "Up to 6 guests" }
-  - { icon: "sofa",             label: "Canapé-lit",           label_en: "Sofa bed" }
-  - { icon: "utensils",         label: "Cuisine équipée",      label_en: "Equipped kitchen" }
-  - { icon: "coffee",           label: "Cafetière & thé",      label_en: "Coffee maker & tea" }
-  - { icon: "microwave",        label: "Micro-ondes",          label_en: "Microwave" }
-  - { icon: "wine",             label: "Lave-vaisselle",       label_en: "Dishwasher" }
-  - { icon: "flame",            label: "Poêle scandinave",     label_en: "Scandinavian stove" }
-  - { icon: "trees",            label: "Terrasse en bois",     label_en: "Wooden terrace" }
-  - { icon: "tent",             label: "Barbecue extérieur",   label_en: "Outdoor barbecue" }
-  - { icon: "car",              label: "Parking privé",        label_en: "Private parking" }
-  - { icon: "washing-machine",  label: "Lave-linge",           label_en: "Washing machine" }
-  - { icon: "wifi-off",         label: "Sans WiFi",            label_en: "No WiFi" }
-  - { icon: "paw-print",        label: "Animaux acceptés",     label_en: "Pets welcome" }
-  - { icon: "baby",             label: "Lit bébé disponible",  label_en: "Baby cot available" }
+  - { icon: "REPLACE_ME", label: "REPLACE_ME", label_en: "REPLACE_ME" }
+  - { icon: "REPLACE_ME", label: "REPLACE_ME", label_en: "REPLACE_ME" }
+  - { icon: "REPLACE_ME", label: "REPLACE_ME", label_en: "REPLACE_ME" }
 
 # ── Gallery ─────────────────────────────────────────────
+# Add as many images as needed. Filenames must match files in assets/images/.
 gallery:
   - url:        "/assets/images/gallery-1.jpg"
-    alt:        "Rivière des Ardennes"
-    alt_en:     "Ardennes river"
-    caption:    "Rivière à proximité"
-    caption_en: "Nearby river"
-  - url:        "/assets/images/gallery-2.jpg"
-    alt:        "Brouillard matinal en forêt"
-    alt_en:     "Morning mist in the forest"
-    caption:    "Brouillard matinal"
-    caption_en: "Morning mist"
-  - url:        "/assets/images/gallery-3.jpg"
-    alt:        "Le chalet sous la neige"
-    alt_en:     "The chalet in the snow"
-    caption:    "Le chalet en hiver"
-    caption_en: "The chalet in winter"
-  - url:        "/assets/images/gallery-4.jpg"
-    alt:        "Couleurs d'automne"
-    alt_en:     "Autumn colours"
-    caption:    "Couleurs d'automne"
-    caption_en: "Autumn colours"
-  - url:        "/assets/images/bedroom-1.jpg"
-    alt:        "Salon chaleureux"
-    alt_en:     "Warm living room"
-    caption:    "Salon chaleureux"
-    caption_en: "Warm living room"
+    alt:        "REPLACE_ME"
+    alt_en:     "REPLACE_ME"
+    caption:    "REPLACE_ME"
+    caption_en: "REPLACE_ME"
 
 # ── Booking ─────────────────────────────────────────────
 booking:
