@@ -31,7 +31,7 @@ All prices are stated in euros (€), inclusive of all taxes. Prices confirmed a
 
 *[To be completed: amount due (deposit or full payment), payment deadline.]*
 
-Payment is made by bank transfer to the service provider's account. The bank details (IBAN) and payment reference to include are sent to the Guest by email upon booking confirmation. The stay is definitively reserved upon receipt of the transfer.
+Payment is made via secure online payment (Stripe). No banking data is stored by the service provider.
 
 ## 6. Cancellation by the Guest
 
@@ -62,14 +62,10 @@ Maximum occupancy is **{{ site.data.property.capacity.guests }} persons**.
 
 The Guest agrees to return the property in the condition in which it was found.
 
-## 10. Insurance and liability
-
-The Guest is responsible for any damage caused to the rented property. Taking out holiday insurance is strongly recommended.
-
-## 11. Personal data
+## 10. Personal data
 
 Data collected is processed in accordance with our [Privacy Policy](/en/confidentialite).
 
-## 12. Applicable law and disputes
+## 11. Applicable law and disputes
 
 *[To be completed: applicable law and competent jurisdiction.]*
