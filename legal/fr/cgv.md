@@ -31,7 +31,7 @@ Les tarifs sont indiqués en euros (€), toutes taxes comprises. Les tarifs en 
 
 *[À compléter : montant dû (acompte ou totalité), délai de paiement.]*
 
-Le paiement s'effectue par voie électronique sécurisée (Stripe). Aucune donnée bancaire n'est conservée par le prestataire.
+Le paiement s'effectue par virement bancaire sur le compte du prestataire. Les coordonnées bancaires (IBAN) ainsi que la communication structurée à indiquer sont transmises au Locataire par email lors de la confirmation de la réservation. Le séjour est définitivement réservé à réception du virement.
 
 ## 6. Annulation par le Locataire
 
@@ -62,10 +62,14 @@ La capacité maximale d'accueil est de **{{ site.data.property.capacity.guests }
 
 Le Locataire s'engage à restituer le logement dans l'état dans lequel il l'a trouvé.
 
-## 10. Données personnelles
+## 10. Assurance et responsabilité
+
+Le Locataire est responsable des dégradations causées au bien loué. La souscription d'une assurance villégiature est vivement recommandée.
+
+## 11. Données personnelles
 
 Les données collectées sont traitées conformément à notre [Politique de confidentialité](/confidentialite).
 
-## 11. Droit applicable et litiges
+## 12. Droit applicable et litiges
 
 *[À compléter : droit applicable et juridiction compétente.]*

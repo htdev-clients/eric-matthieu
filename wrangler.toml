@@ -20,6 +20,8 @@ RESPONSE_HOURS   = "24"
 SITE_URL        = "https://REPLACE_ME.pages.dev"
 # Sender address — use onboarding@resend.dev until client domain is verified with Resend
 FROM_EMAIL      = "onboarding@resend.dev"
+# Owner's bank account number (IBAN) — displayed in the payment email sent to guests
+OWNER_IBAN      = "REPLACE_ME"  # e.g. "BE00 0000 0000 0000"
 # Airbnb iCal export URL — get from Airbnb › Listing › Availability › Export Calendar.
 # Leave empty until provided by client. /api/availability returns [] when not set.
 ICAL_URL        = ""

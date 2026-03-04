@@ -14,7 +14,7 @@ Demo website for a Belgian chalet rental property (Ardennes). Built as a client 
 | Hosting | Cloudflare Pages |
 | Backend functions | Cloudflare Pages Functions |
 | Database | Cloudflare D1 (SQLite, multi-tenant) |
-| Payments | Stripe Checkout + Stripe Connect (or Mollie) |
+| Payments | Bank transfer (IBAN) — no payment gateway |
 | Calendar sync | Airbnb iCal feed |
 
 ---
@@ -27,7 +27,7 @@ Demo website for a Belgian chalet rental property (Ardennes). Built as a client 
 | 2 | Jekyll structure — `_data`, `_layouts`, `_includes` | ✅ Done |
 | 3 | Cloudflare Pages Functions + D1 database (booking inquiry backend) | ✅ Done |
 | 4 | iCal calendar integration (Airbnb availability sync) | ✅ Done |
-| 5 | Stripe/Mollie payment flow + webhooks | ✅ Done |
+| 5 | Bank transfer payment flow (no payment gateway) | ✅ Done |
 
 ---
 
@@ -52,9 +52,8 @@ holiday-rental-template/
 │   │   └── utils.js         # Shared helpers: signHmac, sendEmail, calcTotal, jsonError, escapeHtml
 │   └── api/
 │       ├── booking.js       # POST /api/booking — save to D1, email owner
-│       ├── approve.js       # GET  /api/approve — validate token, Stripe session, email guest
-│       └── webhook/
-│           └── stripe.js    # POST /api/webhook/stripe — verify sig, update D1, confirm emails
+│       ├── approve.js       # GET/POST /api/approve — validate token, email guest bank details
+│       └── confirm.js       # GET/POST /api/confirm — owner confirms payment receipt, confirm emails
 ├── index.html               # Page: front matter + include calls
 ├── cgv.md                   # CGV legal page
 ├── confidentialite.md       # Privacy policy page
@@ -184,8 +183,9 @@ All content is in **`_data/property.yml`** — no HTML editing needed for:
 |---|---|---|
 | `POST /api/booking` | `functions/api/booking.js` | Validate form, save to D1, email owner approval link |
 | `GET /api/approve` | `functions/api/approve.js` | Verify HMAC token, show owner action form |
-| `POST /api/approve` | `functions/api/approve.js` | Process approve/refuse decision, create Stripe session, email guest |
-| `POST /api/webhook/stripe` | `functions/api/webhook/stripe.js` | Verify signature, mark booking paid, send confirmation emails |
+| `POST /api/approve` | `functions/api/approve.js` | Process approve/refuse decision, email guest bank details |
+| `GET /api/confirm` | `functions/api/confirm.js` | Verify HMAC token, show owner payment confirmation form |
+| `POST /api/confirm` | `functions/api/confirm.js` | Mark booking paid, send confirmation emails to guest and owner |
 | `GET /api/admin/bookings` | `functions/api/admin/bookings.js` | Owner dashboard — list all bookings; token = HMAC("admin-bookings", APPROVE_SECRET) — generate with `npm run admin-url` |
 
 ### Infrastructure (already provisioned)
@@ -198,11 +198,10 @@ All content is in **`_data/property.yml`** — no HTML editing needed for:
 ### Per-project setup (new client)
 
 1. Duplicate this repo
-2. Update `wrangler.toml`: `PROPERTY_ID`, `PROPERTY_NAME`, `OWNER_EMAIL`, `FROM_EMAIL`, `SITE_URL`, `ICAL_URL` (from Airbnb export), `PRICE_PER_NIGHT`, `RESPONSE_HOURS`, `MAX_GUESTS`
+2. Update `wrangler.toml`: `PROPERTY_ID`, `PROPERTY_NAME`, `OWNER_EMAIL`, `FROM_EMAIL`, `SITE_URL`, `ICAL_URL` (from Airbnb export), `PRICE_PER_NIGHT`, `RESPONSE_HOURS`, `MAX_GUESTS`, `OWNER_IBAN`
 3. Copy `.dev.vars.example` → `.dev.vars`, fill in secrets
 4. Create `secrets.json` with secret values, run `npm run deploy:secrets`
 5. In Cloudflare Pages dashboard, bind D1 database (`DB` → `holiday-rentals-db`)
-6. Register Stripe webhook URL (see Phase 5)
 
 ### Local development
 
@@ -220,14 +219,13 @@ npm run dev                     # wrangler pages dev on :8788
 | `OWNER_EMAIL` | `wrangler.toml` | Property owner's inbox for booking notifications |
 | `FROM_EMAIL` | `wrangler.toml` | Sender address — `onboarding@resend.dev` until domain verified |
 | `ICAL_URL` | `wrangler.toml` | Airbnb iCal export URL — Airbnb › Listing › Availability › Export Calendar |
-| `PRICE_PER_NIGHT` | `wrangler.toml` | Nightly rate — used server-side to calculate Stripe amount |
+| `PRICE_PER_NIGHT` | `wrangler.toml` | Nightly rate — used server-side to calculate total due |
 | `RESPONSE_HOURS` | `wrangler.toml` | Hours owner has to respond — must match `booking.response_hours` in `property.yml` |
 | `MAX_GUESTS` | `wrangler.toml` | Max guests allowed — must match `capacity.guests` in `property.yml` |
-| `SITE_URL` | `wrangler.toml` | Base URL for approve links and Stripe redirects |
+| `SITE_URL` | `wrangler.toml` | Base URL for approve and confirm links |
+| `OWNER_IBAN` | `wrangler.toml` | Owner's IBAN — displayed in the payment email sent to guests |
 | `RESEND_API_KEY` | `secrets.json` | Resend transactional email API key |
-| `STRIPE_SECRET_KEY` | `secrets.json` | `sk_test_...` for dev, `sk_live_...` for production |
-| `STRIPE_WEBHOOK_SECRET` | `secrets.json` | From Stripe dashboard after registering webhook URL |
-| `APPROVE_SECRET` | `secrets.json` | Long random string — signs owner approval links (HMAC-SHA256) |
+| `APPROVE_SECRET` | `secrets.json` | Long random string — signs owner approval and confirm links (HMAC-SHA256) |
 
 ---
 
@@ -251,18 +249,20 @@ Set `ICAL_URL` in `wrangler.toml` — get URL from Airbnb › Listing › Availa
 
 ## Phase 5 — Payment Flow ✅
 
-Full booking → approval → payment → confirmation flow is working end-to-end in test mode.
+Full booking → approval → bank transfer → confirmation flow is working end-to-end. No payment gateway required.
 
-- Stripe Checkout session created in `approve.js` (card + Bancontact)
-- Webhook registered in Stripe Workbench: event `checkout.session.completed`
-- `STRIPE_WEBHOOK_SECRET` deployed via `npm run deploy:secrets`
-- `/reservation-confirmee` success page added (Jekyll, design-system styled)
-- **Stripe Connect** for platform fee: collect X% on each transaction (future — Phase 6)
+**Flow:**
+1. Guest submits booking form → owner receives approval email with HMAC-signed link
+2. Owner approves → guest receives bank transfer instructions (IBAN + payment reference + total)
+3. Guest pays by bank transfer
+4. Owner sees payment on their account → clicks "Confirm payment received" link from the approval confirmation page
+5. Booking marked `paid` in D1 → confirmation emails sent to guest and owner
 
-### Per-project setup reminder
-- Register webhook in Stripe Workbench → Destinations: `https://<site>.pages.dev/api/webhook/stripe`
-- Event: `checkout.session.completed` → Your account only
-- Copy `whsec_...` signing secret → `secrets.json` → `npm run deploy:secrets`
+**Payment reference** is auto-generated per booking: `RSV-{BOOKING_ID_PREFIX}` — unique and traceable.
+
+### Per-project setup
+- Set `OWNER_IBAN` in `wrangler.toml`
+- No webhook, no Stripe account needed
 
 ### Resend sandbox limitation
 `FROM_EMAIL=onboarding@resend.dev` can only deliver to the Resend account's own verified email.
@@ -278,4 +278,4 @@ For production: verify the client's domain in Resend and update `FROM_EMAIL` in 
 - [x] CGV page (`cgv.md` → `/cgv/`)
 - [x] Politique de confidentialité page (`confidentialite.md` → `/confidentialite/`)
 - [x] Cookies page + GDPR consent banner (`cookies.md` → `/cookies/`)
-- [ ] GDPR: no sensitive financial data stored in D1 ✓ (handled by Stripe)
+- [x] GDPR: no sensitive financial data stored in D1 ✓ (bank details sent by email only, not stored)
