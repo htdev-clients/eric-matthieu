@@ -1,0 +1,1 @@
+URLs of sites the client likes (one per line)
