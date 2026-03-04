@@ -42,7 +42,7 @@ export async function onRequestGet(context) {
 
 /**
  * POST /api/approve
- * Processes the owner's decision: action=approve sends a payment link, action=refuse sends a rejection email.
+ * Processes the owner's decision: approve sends bank transfer instructions to the guest, refuse sends a rejection email.
  */
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -84,21 +84,17 @@ export async function onRequestPost(context) {
   const T = emailT(booking.lang);
 
   if (action === 'approve') {
-    const total = calcTotal(nights, parseFloat(env.PRICE_PER_NIGHT));
+    const total          = calcTotal(nights, parseFloat(env.PRICE_PER_NIGHT));
+    const paymentRef     = 'RSV-' + id.slice(0, 8).toUpperCase();
+    const ownerIban      = env.OWNER_IBAN || '[IBAN non configuré]';
+    const paymentHours   = parseInt(env.PAYMENT_DEADLINE_HOURS, 10) || 24;
 
-    let paymentUrl;
-    try {
-      const session = await createStripeSession({ booking, total, env, propertyName, T });
-      paymentUrl = session.url;
-    } catch (stripeErr) {
-      console.error('Stripe error:', stripeErr);
-      return err('Erreur lors de la création du lien de paiement. Veuillez réessayer.');
-    }
+    // Generate signed token for the guest's "I've paid" confirmation link
+    const guestPaidToken = await signHmac('guest-paid:' + id, env.APPROVE_SECRET);
+    const notifyUrl      = `${env.SITE_URL}/api/notify-payment?id=${encodeURIComponent(id)}&token=${encodeURIComponent(guestPaidToken)}`;
 
-    // Update status first — if the email fails, the owner sees an error page and the
-    // booking remains 'approved' in the DB (not retryable as pending). Better than the
-    // reverse, where a DB failure after a successful email leaves the guest with a link
-    // but the booking stuck as 'pending'.
+    // Update status — do this before sending email so a DB failure doesn't leave
+    // the guest with a link but the booking still 'pending'.
     try {
       await env.DB.prepare("UPDATE bookings SET status = 'approved' WHERE id = ?").bind(id).run();
     } catch (dbErr) {
@@ -106,22 +102,20 @@ export async function onRequestPost(context) {
       return err('Erreur serveur lors de la mise à jour. Veuillez réessayer.');
     }
 
+    let emailFailed = false;
     try {
       await sendEmail(env.RESEND_API_KEY, {
-        from: env.FROM_EMAIL,
-        to: booking.email,
+        from:    env.FROM_EMAIL,
+        to:      booking.email,
         subject: T.pay_subject(propertyName),
-        html: guestPaymentEmailHtml({ booking, nights, total, paymentUrl, propertyName, ownerMessage, T }),
+        html:    guestPaymentEmailHtml({ booking, nights, total, ownerIban, paymentRef, notifyUrl, paymentHours, propertyName, ownerMessage, T }),
       });
     } catch (emailErr) {
-      // DB is already updated — log the failure and show a warning to the owner.
-      console.error('[approve] Failed to email guest payment link:', emailErr);
-      return new Response(successPageHtml(booking, propertyName, 'approved', paymentUrl), {
-        headers: { 'Content-Type': 'text/html;charset=UTF-8' },
-      });
+      console.error('[approve] Failed to email guest payment instructions:', emailErr);
+      emailFailed = true;
     }
 
-    return new Response(successPageHtml(booking, propertyName, 'approved'), {
+    return new Response(successPageHtml(booking, propertyName, 'approved', emailFailed), {
       headers: { 'Content-Type': 'text/html;charset=UTF-8' },
     });
   } else {
@@ -134,88 +128,62 @@ export async function onRequestPost(context) {
 
     try {
       await sendEmail(env.RESEND_API_KEY, {
-        from: env.FROM_EMAIL,
-        to: booking.email,
+        from:    env.FROM_EMAIL,
+        to:      booking.email,
         subject: T.rej_subject(propertyName),
-        html: guestRejectionEmailHtml({ booking, nights, propertyName, ownerMessage, T }),
+        html:    guestRejectionEmailHtml({ booking, nights, propertyName, ownerMessage, T }),
       });
     } catch (emailErr) {
       console.error('[approve] Failed to email guest rejection:', emailErr);
     }
 
-    return new Response(successPageHtml(booking, propertyName, 'refused'), {
+    return new Response(successPageHtml(booking, propertyName, 'refused', false), {
       headers: { 'Content-Type': 'text/html;charset=UTF-8' },
     });
   }
 }
 
-// ─── Stripe ───────────────────────────────────────────────────────────────────
-
-async function createStripeSession({ booking, total, env, propertyName, T }) {
-  const res = await fetch('https://api.stripe.com/v1/checkout/sessions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${env.STRIPE_SECRET_KEY}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    // URLSearchParams must be built from an array of tuples to allow duplicate keys
-    // (object literals silently drop duplicate keys — bancontact would override card)
-    body: new URLSearchParams([
-      ['payment_method_types[]',                                     'card'],
-      ['payment_method_types[]',                                     'bancontact'],
-      ['line_items[0][price_data][currency]',                        'eur'],
-      ['line_items[0][price_data][product_data][name]',              `${propertyName} — ${booking.checkin} → ${booking.checkout}`],
-      ['line_items[0][price_data][product_data][description]',       T.pay_stripe_desc(booking.guests)],
-      ['line_items[0][price_data][unit_amount]',                     String(Math.round(total * 100))],
-      ['line_items[0][quantity]',                                    '1'],
-      ['mode',                                                       'payment'],
-      ['locale',                                                     T.pay_locale],
-      ['success_url',                                                `${env.SITE_URL}${T.success_path}`],
-      ['cancel_url',                                                 `${env.SITE_URL}/#booking`],
-      ['customer_email',                                             booking.email],
-      ['metadata[booking_id]',                                       booking.id],
-      ['metadata[property_id]',                                      booking.property_id],
-      ['custom_text[submit][message]',                               T.pay_stripe_note],
-    ]),
-  });
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
-}
-
 // ─── Email templates ──────────────────────────────────────────────────────────
 
-function guestPaymentEmailHtml({ booking, nights, total, paymentUrl, propertyName, ownerMessage, T }) {
+function guestPaymentEmailHtml({ booking, nights, total, ownerIban, paymentRef, notifyUrl, paymentHours, propertyName, ownerMessage, T }) {
   return `
 <h2 style="color:#2C2520">${T.pay_heading}</h2>
-<p style="font-family:sans-serif">${T.pay_greeting(booking.firstname)}</p>
-<p style="font-family:sans-serif">${T.pay_body(propertyName)}</p>
+<p style="font-family:sans-serif">${T.pay_greeting(escapeHtml(booking.firstname))}</p>
+<p style="font-family:sans-serif">${T.pay_body(escapeHtml(propertyName))}</p>
 ${ownerMessage ? `<p style="font-family:sans-serif;background:#f9f6f0;padding:14px 18px;border-left:3px solid #D6A87C;margin:16px 0;font-style:italic">${escapeHtml(ownerMessage)}</p>` : ''}
-<table style="border-collapse:collapse;font-family:sans-serif;font-size:14px">
-  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.pay_col_checkin}</td><td style="padding:6px 0">${booking.checkin}</td></tr>
-  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.pay_col_checkout}</td><td style="padding:6px 0">${booking.checkout}</td></tr>
+<table style="border-collapse:collapse;font-family:sans-serif;font-size:14px;margin-bottom:20px">
+  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.pay_col_checkin}</td><td style="padding:6px 0">${escapeHtml(booking.checkin)}</td></tr>
+  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.pay_col_checkout}</td><td style="padding:6px 0">${escapeHtml(booking.checkout)}</td></tr>
   <tr><td style="padding:6px 16px 6px 0;color:#888">${T.pay_col_nights}</td><td style="padding:6px 0">${T.pay_nights(nights)}</td></tr>
-  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.pay_col_guests}</td><td style="padding:6px 0">${booking.guests}</td></tr>
+  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.pay_col_guests}</td><td style="padding:6px 0">${escapeHtml(String(booking.guests))}</td></tr>
   <tr><td style="padding:6px 16px 6px 0;color:#888">${T.pay_col_total}</td><td style="padding:6px 0"><strong>${total.toLocaleString('fr-BE')} €</strong></td></tr>
 </table>
+<p style="font-family:sans-serif;font-weight:600;margin-bottom:8px">${T.pay_instructions_heading}</p>
+<table style="border-collapse:collapse;font-family:sans-serif;font-size:14px;background:#f9f6f0;padding:16px;width:100%;margin-bottom:20px">
+  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.pay_iban_label}</td><td style="padding:6px 0"><strong style="letter-spacing:0.04em">${escapeHtml(ownerIban)}</strong></td></tr>
+  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.pay_ref_label}</td><td style="padding:6px 0"><strong>${escapeHtml(paymentRef)}</strong></td></tr>
+  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.pay_amount_label}</td><td style="padding:6px 0"><strong>${total.toLocaleString('fr-BE')} €</strong></td></tr>
+</table>
+<p style="font-family:sans-serif;color:#c0392b;font-size:13px;margin-bottom:20px">${T.pay_deadline(paymentHours)}</p>
 <p style="margin-top:24px">
-  <a href="${paymentUrl}" style="background:#D6A87C;color:#fff;padding:14px 28px;text-decoration:none;font-weight:bold;font-family:sans-serif;display:inline-block">
+  <a href="${notifyUrl}" style="background:#D6A87C;color:#fff;padding:14px 28px;text-decoration:none;font-weight:bold;font-family:sans-serif;display:inline-block">
     ${T.pay_cta}
   </a>
 </p>
-<p style="color:#999;font-size:12px;font-family:sans-serif">${T.pay_link_expiry}</p>
+<p style="color:#999;font-size:12px;font-family:sans-serif;margin-top:12px">${T.pay_cta_note}</p>
 `;
 }
 
 function guestRejectionEmailHtml({ booking, nights, propertyName, ownerMessage, T }) {
   return `
 <h2 style="color:#2C2520">${T.rej_heading}</h2>
-<p style="font-family:sans-serif">${T.rej_greeting(booking.firstname)}</p>
-<p style="font-family:sans-serif">${T.rej_body(propertyName)}</p>
+<p style="font-family:sans-serif">${T.rej_greeting(escapeHtml(booking.firstname))}</p>
+<p style="font-family:sans-serif">${T.rej_body(escapeHtml(propertyName))}</p>
 <table style="border-collapse:collapse;font-family:sans-serif;font-size:14px">
-  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.rej_col_checkin}</td><td style="padding:6px 0">${booking.checkin}</td></tr>
-  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.rej_col_checkout}</td><td style="padding:6px 0">${booking.checkout}</td></tr>
+  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.rej_col_checkin}</td><td style="padding:6px 0">${escapeHtml(booking.checkin)}</td></tr>
+  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.rej_col_checkout}</td><td style="padding:6px 0">${escapeHtml(booking.checkout)}</td></tr>
   <tr><td style="padding:6px 16px 6px 0;color:#888">${T.rej_col_nights}</td><td style="padding:6px 0">${T.rej_nights(nights)}</td></tr>
-  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.rej_col_guests}</td><td style="padding:6px 0">${booking.guests}</td></tr>
+  <tr><td style="padding:6px 16px 6px 0;color:#888">${T.rej_col_guests}</td><td style="padding:6px 0">${escapeHtml(String(booking.guests))}</td></tr>
 </table>
 ${ownerMessage ? `<p style="font-family:sans-serif;background:#f9f6f0;padding:14px 18px;border-left:3px solid #D6A87C;margin:16px 0;font-style:italic">${escapeHtml(ownerMessage)}</p>` : ''}
 <p style="font-family:sans-serif;color:#666">${T.rej_footer}</p>
@@ -256,6 +224,7 @@ function pageShell({ title, propertyName, body, footerNote = '' }) {
     .btn-refuse  { background: #E5E2D9; color: #2C2520; }
     .note   { font-size: 11px; color: #bbb; text-align: center; margin-top: 20px; }
     .warning { background: #FEF3C7; border-left: 4px solid #D97706; padding: 12px 16px; font-size: 13px; color: #92400E; margin-bottom: 20px; line-height: 1.5; }
+    .alert  { background: #FEF2F2; border-left: 4px solid #EF4444; padding: 12px 16px; font-size: 13px; color: #991B1B; margin-bottom: 20px; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -275,10 +244,10 @@ function actionFormHtml({ booking, nights, propertyName, id, token, ttlHours }) 
     <table>
       <tr><td>Voyageur</td><td><strong>${escapeHtml(booking.firstname)} ${escapeHtml(booking.lastname)}</strong></td></tr>
       <tr><td>Email</td><td>${escapeHtml(booking.email)}</td></tr>
-      <tr><td>Arrivée</td><td>${booking.checkin}</td></tr>
-      <tr><td>Départ</td><td>${booking.checkout}</td></tr>
+      <tr><td>Arrivée</td><td>${escapeHtml(booking.checkin)}</td></tr>
+      <tr><td>Départ</td><td>${escapeHtml(booking.checkout)}</td></tr>
       <tr><td>Durée</td><td>${nights} nuit${nights > 1 ? 's' : ''}</td></tr>
-      <tr><td>Voyageurs</td><td>${booking.guests}</td></tr>
+      <tr><td>Voyageurs</td><td>${escapeHtml(String(booking.guests))}</td></tr>
     </table>
     ${booking.message ? `<div class="guest-msg">${escapeHtml(booking.message)}</div>` : ''}
     <div class="warning"><strong>⚠ Avant d'approuver :</strong> bloquez ces dates dans votre calendrier Airbnb pour éviter une double réservation.</div>
@@ -295,24 +264,24 @@ function actionFormHtml({ booking, nights, propertyName, id, token, ttlHours }) 
   return pageShell({ title: 'Demande de réservation', propertyName, body, footerNote: `Lien sécurisé · valable ${ttlHours}h` });
 }
 
-function successPageHtml(booking, propertyName, result, emailFailedPaymentUrl = null) {
+function successPageHtml(booking, propertyName, result, emailFailed) {
   const approved = result === 'approved';
   const icon     = approved ? '✓' : '—';
   const heading  = approved ? 'Réservation approuvée' : 'Demande refusée';
   let detail;
-  if (approved && emailFailedPaymentUrl) {
-    detail = `⚠ L'email au voyageur n'a pas pu être envoyé. Transmettez ce lien manuellement à <strong>${escapeHtml(booking.email)}</strong> :<br><a href="${escapeHtml(emailFailedPaymentUrl)}" style="color:#D6A87C;word-break:break-all">${escapeHtml(emailFailedPaymentUrl)}</a>`;
+  if (approved && emailFailed) {
+    detail = `<div class="alert">⚠ L'email au voyageur n'a pas pu être envoyé. Contactez <strong>${escapeHtml(booking.email)}</strong> directement pour lui transmettre les instructions de virement.</div>`;
   } else if (approved) {
-    detail = `Un lien de paiement a été envoyé à <strong>${escapeHtml(booking.email)}</strong>.`;
+    detail = `<p class="sub" style="margin-top:12px">Les instructions de virement bancaire ont été envoyées à <strong>${escapeHtml(booking.email)}</strong>. Vous recevrez une notification lorsque le voyageur aura effectué son virement.</p>`;
   } else {
-    detail = `Un email de refus a été envoyé à <strong>${escapeHtml(booking.email)}</strong>.`;
+    detail = `<p class="sub" style="margin-top:12px">Un email de refus a été envoyé à <strong>${escapeHtml(booking.email)}</strong>.</p>`;
   }
   const body = `
     <h1 style="color:${approved ? '#4A5D44' : '#888'}">${icon} ${heading}</h1>
-    <p class="sub" style="margin-top:12px">${detail}</p>
+    ${detail}
     <table style="margin-top:8px">
       <tr><td>Voyageur</td><td>${escapeHtml(booking.firstname)} ${escapeHtml(booking.lastname)}</td></tr>
-      <tr><td>Dates</td><td>${booking.checkin} → ${booking.checkout}</td></tr>
+      <tr><td>Dates</td><td>${escapeHtml(booking.checkin)} → ${escapeHtml(booking.checkout)}</td></tr>
     </table>`;
   return pageShell({ title: heading, propertyName, body });
 }

@@ -5,7 +5,7 @@
 CREATE TABLE IF NOT EXISTS bookings (
   id          TEXT    PRIMARY KEY,
   property_id TEXT    NOT NULL,
-  status      TEXT    NOT NULL DEFAULT 'pending', -- pending | approved | paid | rejected | cancelled
+  status      TEXT    NOT NULL DEFAULT 'pending', -- pending | approved | payment_declared | paid | rejected | cancelled
   checkin     TEXT    NOT NULL,
   checkout    TEXT    NOT NULL,
   guests      INTEGER NOT NULL,

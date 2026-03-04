@@ -23,6 +23,10 @@ FROM_EMAIL      = "onboarding@resend.dev"
 # Airbnb iCal export URL — get from Airbnb › Listing › Availability › Export Calendar.
 # Leave empty until provided by client. /api/availability returns [] when not set.
 ICAL_URL        = ""
+# Owner IBAN for bank transfer payments — shown in guest payment emails. Not a secret.
+OWNER_IBAN      = "REPLACE_ME"  # e.g. "BE00 0000 0000 0000"
+# Hours the guest has to make the bank transfer — shown in payment email (not server-enforced).
+PAYMENT_DEADLINE_HOURS = "24"
 # Ruby version for Jekyll builds on Cloudflare Pages
 RUBY_VERSION    = "3.4.4"
 
