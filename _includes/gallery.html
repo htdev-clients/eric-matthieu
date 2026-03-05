@@ -1,51 +1,27 @@
-{% assign t = site.data.i18n[site.active_lang] %}
-<!--
-  ═══════════════════════════════════════════════════════════
-  GALLERY — design this section from scratch per client.
-  ═══════════════════════════════════════════════════════════
-  REQUIRED element ID (scripts.html depends on it — do not rename):
-    #gallery-container  ← the scrollable gallery wrapper
+{% comment %}
+  STUB — gallery.html
+  Write this section from scratch for each client. Do NOT reference the demo site.
 
-  Available data:
-    site.data.property.gallery[] → { url, alt, alt_en, caption, caption_en }
+  Required hooks (do not rename):
+    id="gallery"            → section wrapper (nav links to #gallery)
+    id="gallery-container"  → the scrollable image wrapper
+                              scripts.html calls: gallery-container.scrollBy({ left: ±400 })
 
-  i18n keys:
-    t.gallery.eyebrow   ← e.g. "Photos"
-    t.gallery.heading   ← e.g. "Le chalet en images"
+  Left/right scroll buttons must call (onclick attribute):
+    onclick="scrollGallery('left')"
+    onclick="scrollGallery('right')"
 
-  Scroll buttons call: scrollGallery('left') / scrollGallery('right')
-  (defined in scripts.html)
-
-  Responsive images (switch from <img> to {% picture %} once images are ready):
-    {% assign gallery_src = image.url | remove_first: "/" %}
-    {% picture gallery {{ gallery_src }} alt="{{ img_alt }}" class="..." loading="lazy" %}
-
-  Required section ID: id="gallery"
-  ═══════════════════════════════════════════════════════════
--->
-<section id="gallery">
-
-  <div>
-    <span>{{ t.gallery.eyebrow }}</span>
-    <h2>{{ t.gallery.heading }}</h2>
-    <button onclick="scrollGallery('left')">←</button>
-    <button onclick="scrollGallery('right')">→</button>
-  </div>
-
-  <div id="gallery-container" class="flex overflow-x-auto">
+  Gallery images loop:
     {% for image in site.data.property.gallery %}
-    {% if site.active_lang == 'en' %}
-      {% assign img_alt     = image.alt_en     | default: image.alt %}
-      {% assign img_caption = image.caption_en | default: image.caption %}
-    {% else %}
-      {% assign img_alt     = image.alt %}
-      {% assign img_caption = image.caption %}
-    {% endif %}
-    <div>
-      <img src="{{ image.url }}" alt="{{ img_alt }}" loading="lazy">
-      <p>{{ img_caption }}</p>
-    </div>
+      {{ image.url }}
+      {% if site.active_lang == 'en' %}{{ image.alt_en }}{% else %}{{ image.alt }}{% endif %}
+      {% if site.active_lang == 'en' %}{{ image.caption_en }}{% else %}{{ image.caption }}{% endif %}
     {% endfor %}
-  </div>
 
-</section>
+  Use <img src="{{ image.url }}" alt="..." loading="lazy"> for now.
+  Replace with {% picture gallery ... %} once images are confirmed in assets/images/.
+
+  Scroll reveal: add class="sr" to heading / intro elements.
+  CSS hint: id="gallery-container" needs overflow-x: auto (or overflow-x: scroll) to enable scrolling.
+{% endcomment %}
+{% assign t = site.data.i18n[site.active_lang] %}

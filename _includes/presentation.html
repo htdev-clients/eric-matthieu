@@ -1,117 +1,71 @@
+{% comment %}
+  STUB — presentation.html
+  Write this section from scratch for each client. Do NOT reference the demo site.
+
+  Required section IDs (nav links point to these):
+    id="presentation"   → wrapper for intro / concept sections
+    id="amenities"      → amenities subsection (can be inside #presentation or separate)
+
+  Content available from property.yml:
+
+  Intro:
+    {{ p.intro[site.active_lang] }}
+    {{ p.description[site.active_lang] }}
+
+  Capacity stats:
+    {{ c.guests }} {{ c.bedrooms }} {{ c.bathrooms }} {{ c.area_m2 }} {{ c.land_ha }}
+
+  Concept sections (loop or use first/last):
+    {% for section in p.concept %}
+      {{ section.number }}
+      {% if site.active_lang == 'en' %}
+        {{ section.label_en }} {{ section.title_en }} {{ section.description_en }} {{ section.image_alt_en }}
+        {% for f in section.features %}{{ f.icon }} {{ f.text_en }}{% endfor %}
+      {% else %}
+        {{ section.label }} {{ section.title }} {{ section.description }} {{ section.image_alt }}
+        {% for f in section.features %}{{ f.icon }} {{ f.text }}{% endfor %}
+      {% endif %}
+      {{ section.image }}   ← image path
+      {{ section.reverse }} ← bool, layout hint if desired
+    {% endfor %}
+
+  Amenities (loop):
+    {% for a in p.amenities %}
+      <i data-lucide="{{ a.icon }}"></i>
+      {% if site.active_lang == 'en' %}{{ a.label_en }}{% else %}{{ a.label }}{% endif %}
+    {% endfor %}
+
+  Check-in / check-out:
+    {{ p.checkin_time }} {{ p.checkout_time }}
+
+  Location:
+    {{ p.location.region }} {{ p.location.country[site.active_lang] }}
+
+  Icon rendering: use <i data-lucide="ICON_NAME"></i> — lucide.createIcons() is called in scripts.html.
+  Scroll reveal: add class="sr" to any element you want to animate in on scroll.
+  Images: use <img src="{{ section.image }}" alt="..."> for now; replace with {% picture %} after images are confirmed.
+{% endcomment %}
 {% assign p = site.data.property %}
 {% assign c = p.capacity %}
 {% assign t = site.data.i18n[site.active_lang] %}
 {% assign interior = p.concept | first %}
 {% assign exterior = p.concept | last %}
 {% if site.active_lang == 'en' %}
-  {% assign interior_label = interior.label_en | default: interior.label %}
-  {% assign interior_title = interior.title_en | default: interior.title %}
-  {% assign interior_desc  = interior.description_en | default: interior.description %}
-  {% assign interior_alt   = interior.image_alt_en | default: interior.image_alt %}
-  {% assign exterior_label = exterior.label_en | default: exterior.label %}
-  {% assign exterior_title = exterior.title_en | default: exterior.title %}
-  {% assign exterior_desc  = exterior.description_en | default: exterior.description %}
-  {% assign exterior_alt   = exterior.image_alt_en | default: exterior.image_alt %}
+  {% assign interior_label       = interior.label_en %}
+  {% assign interior_title       = interior.title_en %}
+  {% assign interior_description = interior.description_en %}
+  {% assign interior_alt         = interior.image_alt_en %}
+  {% assign exterior_label       = exterior.label_en %}
+  {% assign exterior_title       = exterior.title_en %}
+  {% assign exterior_description = exterior.description_en %}
+  {% assign exterior_alt         = exterior.image_alt_en %}
 {% else %}
-  {% assign interior_label = interior.label %}
-  {% assign interior_title = interior.title %}
-  {% assign interior_desc  = interior.description %}
-  {% assign interior_alt   = interior.image_alt %}
-  {% assign exterior_label = exterior.label %}
-  {% assign exterior_title = exterior.title %}
-  {% assign exterior_desc  = exterior.description %}
-  {% assign exterior_alt   = exterior.image_alt %}
+  {% assign interior_label       = interior.label %}
+  {% assign interior_title       = interior.title %}
+  {% assign interior_description = interior.description %}
+  {% assign interior_alt         = interior.image_alt %}
+  {% assign exterior_label       = exterior.label %}
+  {% assign exterior_title       = exterior.title %}
+  {% assign exterior_description = exterior.description %}
+  {% assign exterior_alt         = exterior.image_alt %}
 {% endif %}
-<!--
-  ═══════════════════════════════════════════════════════════
-  PRESENTATION — design this section from scratch per client.
-  Contains: property intro + stats, two concept sections
-  (interior + exterior), amenities grid.
-  ═══════════════════════════════════════════════════════════
-  Available data:
-    p.name, p.intro[site.active_lang]
-    c.guests, c.bedrooms, c.bathrooms, c.area_m2, c.land_ha
-    p.pricing.per_night, p.pricing.currency
-    p.pricing.note[site.active_lang]
-
-    interior_label, interior_title, interior_desc, interior_alt
-    interior.image   ← image path
-    interior.features[] → { icon, text, text_en }
-
-    exterior_label, exterior_title, exterior_desc, exterior_alt
-    exterior.image   ← image path
-    exterior.features[] → { icon, text, text_en }
-
-    p.amenities[] → { icon, label, label_en }
-
-  i18n keys:
-    t.presentation.heading_line1 / .heading_line2
-    t.presentation.stat_guests / .stat_bedrooms / .stat_area
-    t.presentation.stat_land / .stat_per_night
-    t.presentation.amenities_eyebrow / .amenities_heading
-
-  Required section IDs: id="presentation", id="amenities"
-
-  Responsive images (switch from <img> to {% picture %} once images are ready):
-    {% assign src = interior.image | remove_first: "/" %}
-    {% picture content {{ src }} alt="{{ interior_alt }}" class="..." %}
-
-  CSS class:
-    .sr   ← scroll-reveal (opacity 0 → 1 on viewport entry, defined in head.html)
-  ═══════════════════════════════════════════════════════════
--->
-<section id="presentation">
-
-  <!-- Intro + stats -->
-  <div>
-    <h2>{{ t.presentation.heading_line1 }} {{ t.presentation.heading_line2 }}</h2>
-    <p>{{ p.intro[site.active_lang] }}</p>
-    <ul>
-      <li>{{ c.guests }} {{ t.presentation.stat_guests }}</li>
-      <li>{{ c.bedrooms }} {{ t.presentation.stat_bedrooms }}</li>
-      <li>{{ c.area_m2 }} {{ t.presentation.stat_area }}</li>
-      <li>{{ c.land_ha }} ha {{ t.presentation.stat_land }}</li>
-      <li>{{ p.pricing.per_night }}{{ p.pricing.currency }} {{ t.presentation.stat_per_night }}</li>
-    </ul>
-  </div>
-
-  <!-- Interior concept -->
-  <div>
-    <span>{{ interior.number }} · {{ interior_label }}</span>
-    <h3>{{ interior_title }}</h3>
-    <p>{{ interior_desc }}</p>
-    <img src="{{ interior.image }}" alt="{{ interior_alt }}">
-    <ul>
-      {% for feature in interior.features %}
-      {% if site.active_lang == 'en' %}{% assign feat_text = feature.text_en | default: feature.text %}{% else %}{% assign feat_text = feature.text %}{% endif %}
-      <li><i data-lucide="{{ feature.icon }}"></i> {{ feat_text }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-
-  <!-- Exterior concept -->
-  <div>
-    <span>{{ exterior.number }} · {{ exterior_label }}</span>
-    <h3>{{ exterior_title }}</h3>
-    <p>{{ exterior_desc }}</p>
-    <img src="{{ exterior.image }}" alt="{{ exterior_alt }}">
-    <ul>
-      {% for feature in exterior.features %}
-      {% if site.active_lang == 'en' %}{% assign feat_text = feature.text_en | default: feature.text %}{% else %}{% assign feat_text = feature.text %}{% endif %}
-      <li><i data-lucide="{{ feature.icon }}"></i> {{ feat_text }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-
-  <!-- Amenities -->
-  <div id="amenities">
-    <h3>{{ t.presentation.amenities_heading }}</h3>
-    <ul>
-      {% for a in p.amenities %}
-      {% if site.active_lang == 'en' %}{% assign a_label = a.label_en | default: a.label %}{% else %}{% assign a_label = a.label %}{% endif %}
-      <li><i data-lucide="{{ a.icon }}"></i> {{ a_label }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-
-</section>

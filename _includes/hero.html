@@ -1,43 +1,26 @@
+{% comment %}
+  STUB — hero.html
+  Write this section from scratch for each client. Do NOT reference the demo site.
+
+  Required hooks (do not rename):
+    id="accueil"    → section/header wrapper (nav links to #accueil)
+
+  Required content:
+    - Hero image: <img src="{{ p.hero_image }}" alt="{{ p.hero_image_alt[site.active_lang] }}">
+      (replace with {% picture hero ... %} once real images are in assets/images/)
+    - CTA button(s): at minimum one link to #booking
+    - Property name: {{ p.name }} or {{ p.short_name }}
+    - Tagline: {{ p.tagline[site.active_lang] }}
+
+  Optional hero content available from property.yml:
+    {{ p.subtitle[site.active_lang] }}
+    {{ p.description[site.active_lang] }}
+    {{ c.guests }}, {{ c.bedrooms }}, {{ c.bathrooms }}, {{ c.area_m2 }}
+
+  Animation classes (defined in head.html, use freely):
+    .hero-reveal       → fade-in-up on page load
+    .hero-reveal-delay → same, with 200ms delay
+{% endcomment %}
 {% assign p = site.data.property %}
+{% assign c = p.capacity %}
 {% assign t = site.data.i18n[site.active_lang] %}
-<!--
-  ═══════════════════════════════════════════════════════════
-  HERO — design this section from scratch per client.
-  ═══════════════════════════════════════════════════════════
-  Required: full-screen or large header with hero image, property name,
-  tagline, and two CTA buttons.
-
-  Available Liquid data:
-    p.name, p.short_name
-    p.subtitle[site.active_lang]
-    p.tagline[site.active_lang]
-    p.description[site.active_lang]
-    p.hero_image                    ← image path, e.g. "/assets/images/hero.jpg"
-    p.hero_image_alt[site.active_lang]
-    p.capacity.guests, p.capacity.bedrooms
-    p.pricing.per_night, p.pricing.currency
-
-  i18n keys:
-    t.hero.cta_check                ← "Vérifier les disponibilités"
-    t.hero.cta_discover             ← "Découvrir"
-    t.hero.scroll                   ← "Défiler"
-
-  CTA targets: #booking (reservation form), #presentation (property detail)
-
-  Responsive image (switch from <img> to {% picture %} once images are ready):
-    {% assign hero_src = p.hero_image | remove_first: "/" %}
-    {% picture hero {{ hero_src }} alt="{{ p.hero_image_alt[site.active_lang] }}"
-       class="..." --picture class="..." %}
-
-  CSS classes available from head.html:
-    .hero-reveal        ← fade-in animation on load
-    .hero-reveal-delay  ← same, with 0.4 s delay
-  ═══════════════════════════════════════════════════════════
--->
-<header id="accueil">
-  <img src="{{ p.hero_image }}" alt="{{ p.hero_image_alt[site.active_lang] }}">
-  <h1>{{ p.name }}</h1>
-  <p>{{ p.description[site.active_lang] }}</p>
-  <a href="#booking">{{ t.hero.cta_check }}</a>
-  <a href="#presentation">{{ t.hero.cta_discover }}</a>
-</header>

@@ -1,76 +1,30 @@
+{% comment %}
+  STUB — nav.html
+  Write this section from scratch for each client. Do NOT reference the demo site.
+
+  Required JS hooks (exact IDs/classes/attributes — do not rename):
+    id="main-nav"             → gets .scrolled class added when window.scrollY > 80
+    id="open-menu-btn"        → opens mobile menu on click
+    id="mobile-menu"          → mobile overlay container (.menu-hidden ↔ .menu-visible)
+    id="close-menu-btn"       → closes mobile menu on click
+    class="mobile-link"       → every link inside the mobile menu (click → closeMenu)
+    [data-lang-switch="fr"]   → FR language switch button (href injected by scripts.html)
+    [data-lang-switch="en"]   → EN language switch button (href injected by scripts.html)
+
+  Section links should point to: #accueil #presentation #amenities #gallery #booking
+
+  logo_href is already computed below — use it for the logo link.
+{% endcomment %}
 {% assign t = site.data.i18n[site.active_lang] %}
 {% if page.url == '/' %}
   {% assign hp        = '' %}
   {% assign logo_href = '#' %}
 {% else %}
   {% if site.active_lang == 'en' %}
-    {% assign hp = '/en/' %}
+    {% assign hp        = '/en' %}
+    {% assign logo_href = '/en/' %}
   {% else %}
-    {% assign hp = '/' %}
+    {% assign hp        = '' %}
+    {% assign logo_href = '/' %}
   {% endif %}
-  {% assign logo_href = hp %}
 {% endif %}
-<!--
-  ═══════════════════════════════════════════════════════════
-  NAVIGATION — design this section from scratch per client.
-  ═══════════════════════════════════════════════════════════
-  REQUIRED element IDs (scripts.html depends on these — do not rename):
-    #main-nav          ← <nav> element; gets .scrolled class on scroll
-    #open-menu-btn     ← mobile hamburger button
-    #close-menu-btn    ← mobile close button
-    #mobile-menu       ← mobile menu overlay
-    .mobile-link       ← links inside mobile menu (auto-closed on click)
-    [data-lang-switch] ← lang buttons; value="fr" or value="en"
-
-  REQUIRED CSS classes (defined in head.html — do not rename):
-    .menu-hidden       ← initial state of #mobile-menu
-    .menu-visible      ← shown state of #mobile-menu
-
-  Available data:
-    site.data.property.name
-    hp                 ← homepage prefix ("" on homepage, "/" or "/en/" elsewhere)
-    logo_href          ← logo href ("#" on homepage, hp elsewhere)
-
-  i18n keys:
-    t.nav.chalet, t.nav.amenities, t.nav.gallery,
-    t.nav.availability, t.nav.book, t.nav.open_menu
-
-  Nav links: {{ hp }}#presentation, {{ hp }}#amenities,
-             {{ hp }}#gallery, {{ hp }}#booking
-  ═══════════════════════════════════════════════════════════
--->
-
-<!-- Mobile menu overlay -->
-<div id="mobile-menu" class="menu-hidden fixed inset-0 z-[60]">
-  <button id="close-menu-btn">✕</button>
-  <nav>
-    <a href="{{ hp }}#presentation" class="mobile-link">{{ t.nav.chalet }}</a>
-    <a href="{{ hp }}#amenities"    class="mobile-link">{{ t.nav.amenities }}</a>
-    <a href="{{ hp }}#gallery"      class="mobile-link">{{ t.nav.gallery }}</a>
-    <a href="{{ hp }}#booking"      class="mobile-link">{{ t.nav.availability }}</a>
-    <a href="{{ hp }}#booking"      class="mobile-link">{{ t.nav.book }}</a>
-  </nav>
-  <div>
-    <a href="#" data-lang-switch="fr">FR</a>
-    <span>|</span>
-    <a href="#" data-lang-switch="en">EN</a>
-  </div>
-</div>
-
-<!-- Main nav -->
-<nav id="main-nav" class="fixed w-full z-50">
-  <a href="{{ logo_href }}">{{ site.data.property.name }}</a>
-  <div>
-    <a href="{{ hp }}#presentation">{{ t.nav.chalet }}</a>
-    <a href="{{ hp }}#amenities">{{ t.nav.amenities }}</a>
-    <a href="{{ hp }}#gallery">{{ t.nav.gallery }}</a>
-    <a href="{{ hp }}#booking">{{ t.nav.availability }}</a>
-  </div>
-  <div>
-    <a href="#" data-lang-switch="fr">FR</a>
-    <span>|</span>
-    <a href="#" data-lang-switch="en">EN</a>
-    <a href="{{ hp }}#booking">{{ t.nav.book }}</a>
-  </div>
-  <button id="open-menu-btn" aria-label="{{ t.nav.open_menu }}">☰</button>
-</nav>

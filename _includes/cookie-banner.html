@@ -1,27 +1,22 @@
+{% comment %}
+  STUB — cookie-banner.html
+  The HTML structure below is functional — keep the ids, inline script, and style="display:none".
+  You may restyle the banner (colors, layout, typography) to match the client design.
+  Do NOT rename: id="cookie-banner", id="cookie-accept", id="cookie-decline".
+  The cookies_path link and i18n strings below are already correct.
+{% endcomment %}
 {% assign t = site.data.i18n[site.active_lang] %}
 {% assign cookies_path = '/cookies' %}
 {% if site.active_lang == 'en' %}{% assign cookies_path = '/en/cookies' %}{% endif %}
-<!-- ── Cookie Consent Banner ── -->
-<div id="cookie-banner"
-     class="fixed bottom-0 left-0 right-0 z-[100] bg-earth border-t border-white/10 shadow-2xl"
-     style="display:none"
-     role="dialog"
-     aria-label="{{ t.cookie.aria_label }}">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
-        <p class="text-xs text-white/70 leading-relaxed max-w-2xl font-sans">
-            {{ t.cookie.text }}
-            <a href="{{ cookies_path }}" class="text-clay underline hover:text-white transition-colors ml-1">{{ t.cookie.learn_more }}</a>
-        </p>
-        <div class="flex gap-3 flex-shrink-0">
-            <button id="cookie-decline"
-                    class="px-5 py-2 text-xs font-bold uppercase tracking-widest border border-white/30 text-white/70 hover:text-white hover:border-white transition-colors">
-                {{ t.cookie.decline }}
-            </button>
-            <button id="cookie-accept"
-                    class="px-5 py-2 text-xs font-bold uppercase tracking-widest bg-clay text-white hover:bg-white hover:text-earth transition-colors">
-                {{ t.cookie.accept }}
-            </button>
-        </div>
+
+<div id="cookie-banner" style="display:none" role="dialog" aria-label="{{ t.cookie.aria_label }}">
+    <p>
+        {{ t.cookie.text }}
+        <a href="{{ cookies_path }}">{{ t.cookie.learn_more }}</a>
+    </p>
+    <div>
+        <button id="cookie-decline">{{ t.cookie.decline }}</button>
+        <button id="cookie-accept">{{ t.cookie.accept }}</button>
     </div>
 </div>
 <script>

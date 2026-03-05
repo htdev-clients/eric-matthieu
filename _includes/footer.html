@@ -1,3 +1,37 @@
+{% comment %}
+  STUB — footer.html
+  Write this section from scratch for each client. Do NOT reference the demo site.
+
+  Required hooks (do not rename):
+    id="contact"              → footer/section wrapper
+    [data-lang-switch="fr"]   → FR language button (href injected by scripts.html)
+    [data-lang-switch="en"]   → EN language button (href injected by scripts.html)
+
+  Content available from property.yml:
+    {{ p.name }} {{ p.short_name }}
+    {{ p.footer_tagline[site.active_lang] }}
+    {{ p.contact.phone }} {{ p.contact.email }}
+    {{ p.social.instagram }} {{ p.social.facebook }}
+    {{ p.location.maps_url }}
+    {{ p.location.address_line1 }} {{ p.location.address_line2 }}
+    {{ p.location.country[site.active_lang] }}
+
+  Legal links (already computed):
+    {{ cgv_path }}      → /cgv  or  /en/cgv
+    {{ privacy_path }}  → /confidentialite  or  /en/confidentialite
+    {{ cookies_path }}  → /cookies  or  /en/cookies
+
+  Common footer elements:
+    - Link to #booking (CTA)
+    - Phone: <a href="tel:{{ p.contact.phone }}">
+    - Email: <a href="mailto:{{ p.contact.email }}">
+    - Instagram/Facebook: target="_blank" rel="noopener"
+    - Maps: <a href="{{ p.location.maps_url }}" target="_blank" rel="noopener">
+    - Copyright: © {{ 'now' | date: '%Y' }} {{ p.contact.owner_name }}
+    - Legal links: cgv_path, privacy_path, cookies_path
+
+  {{ t.footer.* }} → i18n strings for footer UI text (if applicable)
+{% endcomment %}
 {% assign p = site.data.property %}
 {% assign t = site.data.i18n[site.active_lang] %}
 {% if site.active_lang == 'en' %}
@@ -9,66 +43,3 @@
   {% assign privacy_path = '/confidentialite' %}
   {% assign cookies_path = '/cookies' %}
 {% endif %}
-<!--
-  ═══════════════════════════════════════════════════════════
-  FOOTER — design this section from scratch per client.
-  ═══════════════════════════════════════════════════════════
-  Available data:
-    p.name
-    p.footer_tagline[site.active_lang]
-    p.social.instagram, p.social.facebook
-    p.location.address_line1, .address_line2
-    p.location.country[site.active_lang], .maps_url
-    p.contact.phone, p.contact.email
-    p.compliance.registration_number
-
-  Legal paths (pre-computed for active language):
-    cgv_path, privacy_path, cookies_path
-
-  i18n keys:
-    t.footer.address_heading, t.footer.contact_heading
-    t.footer.view_map, t.footer.book_cta
-    t.footer.rights, t.footer.cgv, t.footer.privacy, t.footer.cookies
-
-  [data-lang-switch] buttons are required for language switching (scripts.html).
-  ═══════════════════════════════════════════════════════════
--->
-<footer id="contact">
-
-  <div>
-    <p>{{ p.name }}</p>
-    <p>{{ p.footer_tagline[site.active_lang] }}</p>
-    <a href="{{ p.social.instagram }}" target="_blank" rel="noopener noreferrer">Instagram</a>
-    <a href="{{ p.social.facebook }}"  target="_blank" rel="noopener noreferrer">Facebook</a>
-  </div>
-
-  <div>
-    <span>{{ t.footer.address_heading }}</span>
-    <address>
-      {{ p.location.address_line1 }},<br>
-      {{ p.location.address_line2 }},<br>
-      {{ p.location.country[site.active_lang] }}
-    </address>
-    <a href="{{ p.location.maps_url }}" target="_blank" rel="noopener noreferrer">
-      {{ t.footer.view_map }}
-    </a>
-  </div>
-
-  <div>
-    <span>{{ t.footer.contact_heading }}</span>
-    <a href="tel:{{ p.contact.phone | remove: ' ' }}">{{ p.contact.phone }}</a>
-    <a href="mailto:{{ p.contact.email }}">{{ p.contact.email }}</a>
-    <a href="#booking">{{ t.footer.book_cta }}</a>
-  </div>
-
-  <div>
-    <span>© {{ 'now' | date: "%Y" }} {{ p.name }} · {{ t.footer.rights }}</span>
-    <span>{{ p.compliance.registration_number }}</span>
-    <a href="{{ cgv_path }}">{{ t.footer.cgv }}</a>
-    <a href="{{ privacy_path }}">{{ t.footer.privacy }}</a>
-    <a href="{{ cookies_path }}">{{ t.footer.cookies }}</a>
-    <a href="#" data-lang-switch="fr">FR</a>
-    <a href="#" data-lang-switch="en">EN</a>
-  </div>
-
-</footer>
