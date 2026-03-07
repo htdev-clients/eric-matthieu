@@ -1,9 +1,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#2C2520">
+    <meta name="theme-color" content="REPLACE_ME"><!-- set to your primary dark color hex -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg"><!-- REPLACE: add client favicon -->
     {% assign p = site.data.property %}
     {% assign meta_desc = p.description[site.active_lang] | default: p.description.fr %}
     {% assign og_locale = 'fr_BE' %}{% if site.active_lang == 'en' %}{% assign og_locale = 'en_GB' %}{% endif %}
@@ -37,60 +37,35 @@
     <link rel="stylesheet" href="/assets/css/tailwind.css">
 
     <style>
-        /* ── Self-hosted fonts ── */
-        @font-face {
-            font-family: 'Cormorant Garamond';
-            font-style: normal;
-            font-weight: 400 700;
-            font-display: swap;
-            src: url('/assets/fonts/cormorant-garamond-normal-latin-ext.woff2') format('woff2');
-            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-        }
-        @font-face {
-            font-family: 'Cormorant Garamond';
-            font-style: normal;
-            font-weight: 400 700;
-            font-display: swap;
-            src: url('/assets/fonts/cormorant-garamond-normal-latin.woff2') format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-        @font-face {
-            font-family: 'Cormorant Garamond';
-            font-style: italic;
-            font-weight: 400 700;
-            font-display: swap;
-            src: url('/assets/fonts/cormorant-garamond-italic-latin-ext.woff2') format('woff2');
-            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-        }
-        @font-face {
-            font-family: 'Cormorant Garamond';
-            font-style: italic;
-            font-weight: 400 700;
-            font-display: swap;
-            src: url('/assets/fonts/cormorant-garamond-italic-latin.woff2') format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-        @font-face {
-            font-family: 'Montserrat';
-            font-style: normal;
-            font-weight: 300 700;
-            font-display: swap;
-            src: url('/assets/fonts/montserrat-normal-latin-ext.woff2') format('woff2');
-            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-        }
-        @font-face {
-            font-family: 'Montserrat';
-            font-style: normal;
-            font-weight: 300 700;
-            font-display: swap;
-            src: url('/assets/fonts/montserrat-normal-latin.woff2') format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
+        /*
+         * ── FONTS ───────────────────────────────────────────────────────────────
+         * REPLACE: add @font-face blocks (self-hosted) or a <link> to Google Fonts.
+         * Self-hosted .woff2 files go in assets/fonts/.
+         * Then update fontFamily.serif / fontFamily.sans in tailwind.config.js.
+         * ────────────────────────────────────────────────────────────────────── */
     </style>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-
     <style>
+        /*
+         * ── DESIGN TOKENS ────────────────────────────────────────────────────────
+         * Set these in the design system step (prompt2 Step 1) before writing sections.
+         * Every color in this file must reference these variables — no raw hex values.
+         *
+         * Mapping to Tailwind tokens (tailwind.config.js must match):
+         *   --color-primary  → earth   (primary dark — text, dark backgrounds)
+         *   --color-accent   → clay    (CTA color — buttons, highlights)
+         *   --color-bg       → paper   (page background)
+         *   --color-surface  → stone   (alternate section background)
+         *   --color-card     → cream   (form / card background)
+         * ────────────────────────────────────────────────────────────────────── */
+        :root {
+            --color-primary: REPLACE_ME;
+            --color-accent:  REPLACE_ME;
+            --color-bg:      REPLACE_ME;
+            --color-surface: REPLACE_ME;
+            --color-card:    REPLACE_ME;
+        }
+
         html { scroll-behavior: smooth; }
 
         /* ── Scrollbar ── */
@@ -109,52 +84,40 @@
         .sr { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .sr.visible { opacity: 1; transform: translateY(0); }
 
-        /* ── Hard shadow card ── */
-        .hard-shadow {
-            box-shadow: 14px 14px 0 0 #2C2520;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        @media (hover: hover) {
-            .hard-shadow:hover {
-                transform: translate(-4px, -4px);
-                box-shadow: 18px 18px 0 0 #D6A87C;
-            }
-        }
-
         /* ── Mobile menu ── */
         #mobile-menu { transition: opacity 0.3s ease, visibility 0.3s ease; }
         .menu-hidden  { opacity: 0; visibility: hidden; pointer-events: none; }
         .menu-visible { opacity: 1; visibility: visible; pointer-events: auto; }
 
         /* ── Sticky nav background ── */
-        #main-nav.scrolled { background: rgba(44,37,32,0.97) !important; backdrop-filter: blur(8px); }
+        #main-nav.scrolled { background: var(--color-primary) !important; backdrop-filter: blur(8px); }
 
         /* ── Calendar ── */
         .cal-day { width: 100%; max-width: 3rem; aspect-ratio: 1; height: auto; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 0.875rem; border-radius: 0.25rem; cursor: default; }
-        .cal-day.available { background: #F2F0E9; color: #2C2520; cursor: pointer; }
+        .cal-day.available { background: var(--color-bg); color: var(--color-primary); cursor: pointer; }
         .cal-day.booked    { background: #D9D6CE; color: #A8A49D; cursor: not-allowed; }
-        .cal-day.today     { outline: 2px solid #D6A87C; outline-offset: -2px; font-weight: 700; }
+        .cal-day.today     { outline: 2px solid var(--color-accent); outline-offset: -2px; font-weight: 700; }
         .cal-day.empty     { background: transparent; cursor: default; }
         .cal-day.selected-start,
-        .cal-day.selected-end { background: #D6A87C !important; color: white; font-weight: 700; }
-        .cal-day.in-range          { background: #D6A87C; color: white; }
+        .cal-day.selected-end { background: var(--color-accent) !important; color: white; font-weight: 700; }
+        .cal-day.in-range          { background: var(--color-accent); color: white; }
         .cal-day.blocked           { background: #EDEAE3; color: #B8B3AB; cursor: not-allowed; }
-        .cal-day.in-range-preview  { background: #F0E0CF; color: #2C2520; }
-        .cal-day.hover-end         { background: #D6A87C !important; color: white !important; font-weight: 700; opacity: 0.75; }
+        .cal-day.in-range-preview  { background: color-mix(in srgb, var(--color-accent) 25%, white); color: var(--color-primary); }
+        .cal-day.hover-end         { background: var(--color-accent) !important; color: white !important; font-weight: 700; opacity: 0.75; }
+        .cal-dayname               { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; text-align: center; color: var(--color-primary); opacity: 0.4; }
 
         /* ── Form inputs ── */
         .form-input {
             width: 100%;
-            background: #FAF8F3;
-            border: 1px solid #E5E2D9;
+            background: var(--color-card);
+            border: 1px solid var(--color-surface);
             padding: 0.75rem 1rem;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem; /* ≥ 16 px prevents iOS Safari from auto-zooming on focus */
-            color: #2C2520;
+            font-size: 1rem; /* ≥ 16px prevents iOS Safari from auto-zooming on focus */
+            color: var(--color-primary);
             outline: none;
             transition: border-color 0.2s;
         }
-        .form-input:focus { border-color: #D6A87C; }
+        .form-input:focus { border-color: var(--color-accent); }
         .form-input::placeholder { color: #aaa; }
 
         /* ── Mobile / Touch ── */
@@ -163,7 +126,7 @@
         /* Suppress tap highlight flash on Android/iOS */
         a, button { -webkit-tap-highlight-color: transparent; }
         /* Keyboard focus ring — visible only on keyboard/tab nav, not mouse clicks */
-        a:focus-visible, button:focus-visible { outline: 2px solid #D6A87C; outline-offset: 3px; border-radius: 4px; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 4px; }
         /* Prevent image/icon drag and accidental text selection */
         img, svg { user-select: none; -webkit-user-select: none; }
         /* No text selection or double-tap zoom on calendar cells */
@@ -172,68 +135,53 @@
            svh = stable (won't jump), dvh = dynamic (fills exactly the visible area) */
         @supports (height: 100svh) { header.h-screen { height: 100svh; } }
         @supports (height: 100dvh) { header.h-screen { height: 100dvh; } }
-
-        /* ── Amenity badge ── */
-        .amenity-badge {
-            display: flex; align-items: center; gap: 0.6rem;
-            padding: 0.6rem 1rem;
-            background: #FAF8F3;
-            border: 1px solid #E5E2D9;
-            font-size: 0.78rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #2C2520;
-        }
     </style>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     {% if page.layout == 'legal' %}
     <style>
         /* ── Legal page typography ── */
         .legal-content h1 {
-            font-family: 'Cormorant Garamond', serif;
             font-size: clamp(1.9rem, 5vw, 2.8rem);
             font-weight: 700;
             line-height: 1.15;
-            color: #2C2520;
+            color: var(--color-primary);
             margin-bottom: 0.25rem;
         }
         .legal-meta {
-            font-family: 'Montserrat', sans-serif;
             font-size: 0.68rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            color: #D6A87C;
+            color: var(--color-accent);
             margin-top: 0 !important;
             margin-bottom: 2.5rem;
             display: block;
         }
         .legal-content h2 {
-            font-family: 'Cormorant Garamond', serif;
             font-size: 1.35rem;
             font-weight: 700;
-            color: #2C2520;
+            color: var(--color-primary);
             margin-top: 2.5rem;
             margin-bottom: 0.75rem;
             padding-bottom: 0.4rem;
-            border-bottom: 1px solid #E5E2D9;
+            border-bottom: 1px solid var(--color-surface);
         }
         .legal-content h3 {
-            font-family: 'Montserrat', sans-serif;
             font-size: 0.78rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: #2C2520;
+            color: var(--color-primary);
             margin-top: 1.5rem;
             margin-bottom: 0.4rem;
         }
         .legal-content p {
-            font-family: 'Montserrat', sans-serif;
             font-size: 0.875rem;
             line-height: 1.85;
-            color: #4a4440;
+            color: var(--color-primary);
+            opacity: 0.75;
             margin-bottom: 1rem;
         }
         .legal-content ul, .legal-content ol {
@@ -243,18 +191,18 @@
         .legal-content ul { list-style: disc; }
         .legal-content ol { list-style: decimal; }
         .legal-content li {
-            font-family: 'Montserrat', sans-serif;
             font-size: 0.875rem;
             line-height: 1.85;
-            color: #4a4440;
+            color: var(--color-primary);
+            opacity: 0.75;
             margin-bottom: 0.3rem;
         }
-        .legal-content a { color: #D6A87C; text-decoration: underline; }
-        .legal-content a:hover { color: #2C2520; }
-        .legal-content strong { font-weight: 700; color: #2C2520; }
+        .legal-content a { color: var(--color-accent); text-decoration: underline; }
+        .legal-content a:hover { color: var(--color-primary); }
+        .legal-content strong { font-weight: 700; color: var(--color-primary); opacity: 1; }
         .legal-content hr {
             border: none;
-            border-top: 1px solid #E5E2D9;
+            border-top: 1px solid var(--color-surface);
             margin: 2.5rem 0;
         }
         .legal-content table {
@@ -263,9 +211,8 @@
             margin: 1.5rem 0;
         }
         .legal-content th {
-            background: #E5E2D9;
-            color: #2C2520;
-            font-family: 'Montserrat', sans-serif;
+            background: var(--color-surface);
+            color: var(--color-primary);
             font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -275,9 +222,9 @@
         }
         .legal-content td {
             padding: 0.6rem 1rem;
-            border-bottom: 1px solid #E5E2D9;
-            color: #4a4440;
-            font-family: 'Montserrat', sans-serif;
+            border-bottom: 1px solid var(--color-surface);
+            color: var(--color-primary);
+            opacity: 0.75;
             font-size: 0.875rem;
         }
         .legal-content tr:last-child td { border-bottom: none; }
@@ -285,23 +232,21 @@
             display: inline-flex;
             align-items: center;
             gap: 0.35rem;
-            font-family: 'Montserrat', sans-serif;
             font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: #D6A87C;
+            color: var(--color-accent);
             text-decoration: none !important;
             margin-bottom: 2rem;
             transition: color 0.2s;
         }
-        .legal-back:hover { color: #2C2520 !important; }
+        .legal-back:hover { color: var(--color-primary) !important; }
         .legal-btn {
             display: inline-block;
             padding: 0.6rem 1.5rem;
-            border: 1px solid #D6A87C;
-            color: #D6A87C;
-            font-family: 'Montserrat', sans-serif;
+            border: 1px solid var(--color-accent);
+            color: var(--color-accent);
             font-size: 0.72rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -312,7 +257,7 @@
             margin-top: 0.5rem;
             margin-bottom: 1rem;
         }
-        .legal-btn:hover { background: #D6A87C; color: white; }
+        .legal-btn:hover { background: var(--color-accent); color: white; }
         .legal-btn:disabled { opacity: 0.5; cursor: default; }
     </style>
     {% endif %}

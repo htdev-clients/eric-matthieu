@@ -134,6 +134,10 @@
     }
 
     function renderMonth(year, month) {
+        // Update the static month/year label written in booking.html
+        const labelEl = document.getElementById('calendar-month-label');
+        if (labelEl) labelEl.textContent = `${MONTH_NAMES[month]} ${year}`;
+
         const today       = new Date();
         const firstDay    = new Date(year, month, 1).getDay();
         const startOffset = (firstDay + 6) % 7; // Mon = 0
@@ -150,24 +154,15 @@
             });
         }
 
-        let html = `<div class="bg-white p-6 border border-stone" onmouseleave="clearHover()">`;
-
-        // Header
-        html += `<div class="flex items-center justify-between mb-4">`;
-        html += `<button onclick="shiftCalendar(-1)" class="p-1 hover:text-clay transition-colors" aria-label="Mois précédent"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>`;
-        html += `<span class="font-serif text-lg text-earth">${MONTH_NAMES[month]} ${year}</span>`;
-        html += `<button onclick="shiftCalendar(1)"  class="p-1 hover:text-clay transition-colors" aria-label="Mois suivant"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>`;
-        html += `</div>`;
-
-        // Day names
-        html += `<div class="grid grid-cols-7 gap-1 mb-2">`;
+        // Day names header
+        let html = `<div class="grid grid-cols-7 gap-1 mb-2" aria-hidden="true">`;
         DAY_NAMES.forEach(d => {
-            html += `<div class="cal-day text-center text-xs font-bold text-gray-400 uppercase">${d}</div>`;
+            html += `<div class="cal-day cal-dayname">${d}</div>`;
         });
         html += `</div>`;
 
         // Days
-        html += `<div class="grid grid-cols-7 gap-1">`;
+        html += `<div class="grid grid-cols-7 gap-1" onmouseleave="clearHover()">`;
         for (let i = 0; i < startOffset; i++) html += `<div class="cal-day empty"></div>`;
 
         for (let d = 1; d <= daysInMonth; d++) {
@@ -204,7 +199,7 @@
         // Always fill to 42 cells (6 rows) so height never changes
         const trailing = 42 - startOffset - daysInMonth;
         for (let i = 0; i < trailing; i++) html += `<div class="cal-day empty"></div>`;
-        html += `</div></div>`;
+        html += `</div>`;
         return html;
     }
 

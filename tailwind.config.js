@@ -11,16 +11,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        earth: '#2C2520',
-        clay:  '#D6A87C',
-        leaf:  '#4A5D44',
-        paper: '#F2F0E9',
-        stone: '#E5E2D9',
-        cream: '#FAF8F3',
+        earth: 'REPLACE_ME', // primary dark — text, dark backgrounds
+        clay:  'REPLACE_ME', // accent — CTAs, highlights
+        leaf:  'REPLACE_ME', // secondary accent — icons, callouts (omit if not needed)
+        paper: 'REPLACE_ME', // page background
+        stone: 'REPLACE_ME', // alternate section background
+        cream: 'REPLACE_ME', // form / card background
       },
       fontFamily: {
-        serif: ['Cormorant Garamond', 'serif'],
-        sans:  ['Montserrat', 'sans-serif'],
+        serif: ['REPLACE_ME', 'serif'], // heading typeface
+        sans:  ['REPLACE_ME', 'sans-serif'], // body typeface
       },
       screens: {
         pointer: { raw: '(hover: hover)' },
