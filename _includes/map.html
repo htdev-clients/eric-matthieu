@@ -11,10 +11,10 @@
     </div>
   </div>
 
-  {% if p.location.maps_url != 'MISSING' %}
+  {% if p.location.maps_embed_url %}
   <div style="width: 100%; height: 420px;">
     <iframe
-      src="{{ p.location.maps_url }}"
+      src="{{ p.location.maps_embed_url }}"
       width="100%"
       height="100%"
       style="border: 0; display: block;"
