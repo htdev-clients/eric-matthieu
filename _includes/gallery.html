@@ -26,7 +26,7 @@
 {% endcomment %}
 {% assign t = site.data.i18n[site.active_lang] %}
 
-<section id="gallery" style="padding: 7rem 0; background: #1C3418;">
+<section id="gallery" style="padding-top: 7rem; background: #1C3418;">
   <div class="container">
     <div class="text-center sr" style="margin-bottom: 3rem;">
       <span class="section-label" style="color: rgba(255,255,255,.35);">{% if site.active_lang == 'en' %}Photos{% else %}Photos{% endif %}</span>
@@ -37,7 +37,7 @@
   </div>
 
   <!-- Mosaic grid — id="gallery-container" satisfies the JS hook; scrollGallery() is a no-op here -->
-  <div id="gallery-container" class="gallery-grid" style="overflow-x: auto;">
+  <div id="gallery-container" class="gallery-grid">
     {% for image in site.data.property.gallery %}
     <div class="g-item">
       <img
