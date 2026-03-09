@@ -18,7 +18,7 @@
 
 <section id="booking" style="padding: 7rem 0; background: var(--color-primary);">
   <div class="container">
-    <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-stretch">
 
       <!-- Left: info + calendar -->
       <div>
@@ -73,8 +73,8 @@
       </div>
 
       <!-- Right: form -->
-      <div>
-        <div id="booking-form-container" style="background: var(--color-card); padding: 2.5rem;">
+      <div style="display: flex; flex-direction: column;">
+        <div id="booking-form-container" style="background: var(--color-card); padding: 2.5rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
           <div class="font-serif" style="font-size: 1.5rem; font-weight: 400; color: var(--color-primary); margin-bottom: 1.8rem;">
             {% if site.active_lang == 'en' %}Book your stay{% else %}Réserver votre séjour{% endif %}
           </div>

@@ -1,0 +1,36 @@
+{% assign p = site.data.property %}
+
+<!-- ── LOCALISATION ── -->
+<section id="localisation" style="background: var(--color-surface);">
+  <div class="container" style="padding: 5rem 0 3rem;">
+    <div class="sr" style="margin-bottom: 2rem;">
+      <span class="section-label">{% if site.active_lang == 'en' %}Location{% else %}Localisation{% endif %}</span>
+      <h2 class="section-title">
+        {% if site.active_lang == 'en' %}Find us<br><em>in the Ardennes</em>{% else %}Nous trouver<br><em>en Ardennes</em>{% endif %}
+      </h2>
+    </div>
+  </div>
+
+  {% if p.location.maps_url != 'MISSING' %}
+  <div style="width: 100%; height: 420px;">
+    <iframe
+      src="{{ p.location.maps_url }}"
+      width="100%"
+      height="100%"
+      style="border: 0; display: block;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="{% if site.active_lang == 'en' %}Map — Le Gîte de Lierneux{% else %}Carte — Le Gîte de Lierneux{% endif %}"
+    ></iframe>
+  </div>
+  {% else %}
+  <div style="width: 100%; height: 420px; background: #D6CFBF; display: flex; align-items: center; justify-content: center;">
+    <div style="text-align: center; color: #7A7165;">
+      <i data-lucide="map-pin" style="width: 36px; height: 36px; margin: 0 auto 1rem; display: block; color: var(--color-accent);"></i>
+      <p style="font-size: .9rem; font-weight: 300; margin-bottom: .3rem;">Lierneux, 4990 — Ardennes Belges</p>
+      <p style="font-size: .75rem; opacity: .6;">{% if site.active_lang == 'en' %}Interactive map coming soon{% else %}Carte interactive à venir{% endif %}</p>
+    </div>
+  </div>
+  {% endif %}
+</section>
