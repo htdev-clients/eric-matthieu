@@ -69,3 +69,150 @@
   {% assign exterior_description = exterior.description %}
   {% assign exterior_alt         = exterior.image_alt %}
 {% endif %}
+
+<!-- ── PRÉSENTATION ── -->
+<section id="presentation" style="padding: 7rem 0; background: var(--color-bg);">
+  <div class="container">
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+      <!-- Text -->
+      <div>
+        <span class="section-label sr">{{ interior_label }}</span>
+        <h2 class="section-title sr" style="margin-bottom: 2rem;">
+          {% if site.active_lang == 'en' %}
+            A chalet in the heart<br><em>of the Ardennes</em>
+          {% else %}
+            Un chalet au cœur<br><em>de la nature ardennaise</em>
+          {% endif %}
+        </h2>
+        <div class="sr" style="font-size: 1rem; line-height: 1.85; color: #2A2824; font-weight: 300;">
+          {% if site.active_lang == 'en' %}
+            <p>Beech forests, open meadows, hiking trails at your doorstep and a starlit sky free of light pollution. The property is fully enclosed, with keybox entry — you arrive when you want and leave at your own pace.</p>
+            <p style="margin-top: 1.2rem;">The house sleeps <strong style="font-weight: 500; color: var(--color-primary);">4 guests</strong> (+ 1 baby in travel cot) across 2 bedrooms, each with its own bathroom. The living space is bright and opens onto the terrace and garden.</p>
+            <p style="margin-top: 1.2rem;">What makes this property stand out is the concentration of wellness amenities: heated infinity pool with hill views, premium Fox Spas jacuzzi, cedar barrel sauna and multi-jet hammam. Rarely all in one place.</p>
+          {% else %}
+            <p>Forêts de hêtres, prairies ouvertes, sentiers de randonnée à deux pas et un ciel étoilé sans pollution lumineuse. Le gîte est entièrement clos, avec accès par boîte à clé — vous arrivez quand vous voulez, vous repartez à votre rythme.</p>
+            <p style="margin-top: 1.2rem;">La maison accueille <strong style="font-weight: 500; color: var(--color-primary);">4 personnes</strong> (+ 1 bébé en lit de voyage) dans 2 chambres avec leur propre salle de bain. L'espace de vie est lumineux, ouvert sur la terrasse et le jardin.</p>
+            <p style="margin-top: 1.2rem;">Ce qui rend ce gîte différent, c'est la concentration d'équipements bien-être&nbsp;: piscine chauffée à débordement avec vue sur les collines, jacuzzi Fox Spas haute gamme, sauna barrel en bois et hammam multi-jets. Rarement tout ça au même endroit.</p>
+          {% endif %}
+        </div>
+
+        <!-- Details grid -->
+        <div class="sr grid grid-cols-2 gap-x-8 gap-y-3 mt-10 pt-10" style="border-top: 1px solid var(--color-surface);">
+          {% if site.active_lang == 'en' %}
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>2 double bedrooms</div>
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>2 private bathrooms</div>
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>50 m² SW-facing terrace</div>
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>Fully equipped kitchen</div>
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>Forest 100 m away</div>
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>Small dog welcome on request</div>
+          {% else %}
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>2 chambres doubles</div>
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>2 salles de bain privatives</div>
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>Terrasse 50 m², sud-ouest</div>
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>Cuisine entièrement équipée</div>
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>Forêt à 100 m</div>
+            <div class="flex items-center gap-3 text-sm" style="color: #2A2824;"><span class="w-[5px] h-[5px] rounded-full flex-shrink-0" style="background: var(--color-accent);"></span>Petit chien accepté sur demande</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Images -->
+      <div class="relative flex flex-col gap-4 sr">
+        <img class="pres-img-top" src="{{ interior.image }}" alt="{{ interior_alt }}">
+        <img class="pres-img-bot" src="{{ interior.image2 | default: p.hero_image }}" alt="{{ exterior_alt }}">
+        <div class="pres-image-accent"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── BIEN-ÊTRE ── -->
+<section id="amenities" style="padding-top: 7rem; background: var(--color-surface);">
+  <div class="container">
+    <div class="text-center sr" style="margin-bottom: 4rem;">
+      <span class="section-label">{% if site.active_lang == 'en' %}Exclusive amenities{% else %}Équipements exclusifs{% endif %}</span>
+      <h2 class="section-title" style="margin-bottom: 1rem;">
+        {% if site.active_lang == 'en' %}Four ways<br><em>to unwind</em>{% else %}Quatre façons<br><em>de vous détendre</em>{% endif %}
+      </h2>
+      <p style="font-size: 1rem; font-weight: 300; color: #7A7165; max-width: 520px; margin: 0 auto; line-height: 1.7;">
+        {% if site.active_lang == 'en' %}All included in the stay price — no extra charge, no time limit.{% else %}Tout est compris dans le prix du séjour — pas de supplément, pas de limite d'heures.{% endif %}
+      </p>
+    </div>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-2" style="gap: 3px;">
+
+    <!-- Piscine -->
+    <div class="bienetre-card">
+      <img src="/assets/images/wellness-pool.jpg" alt="{% if site.active_lang == 'en' %}Heated pool with panoramic view{% else %}Piscine chauffée avec vue panoramique{% endif %}" loading="lazy">
+      <div class="bienetre-overlay">
+        <span style="font-size: .68rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: #C97040; margin-bottom: .4rem;">{% if site.active_lang == 'en' %}May – September{% else %}Mai – Septembre{% endif %}</span>
+        <div class="font-serif text-white" style="font-size: 1.8rem; font-weight: 400; margin-bottom: .4rem;">{% if site.active_lang == 'en' %}Heated pool{% else %}Piscine chauffée{% endif %}</div>
+        <p style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.72); line-height: 1.55;">{% if site.active_lang == 'en' %}8.7 × 4.35 m, wooden deck, views over the Ardennes hills. Sunloungers and garden table.{% else %}8,7 × 4,35 m, terrasse en bois, vue sur les collines ardennaises. Transats et table de jardin.{% endif %}</p>
+      </div>
+    </div>
+
+    <!-- Jacuzzi -->
+    <div class="bienetre-card">
+      <img src="/assets/images/wellness-jacuzzi.jpg" alt="{% if site.active_lang == 'en' %}Fox Spas jacuzzi lit at night{% else %}Jacuzzi Fox Spas éclairé la nuit{% endif %}" loading="lazy">
+      <div class="bienetre-overlay">
+        <span style="font-size: .68rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: #C97040; margin-bottom: .4rem;">{% if site.active_lang == 'en' %}Year-round{% else %}Toute l'année{% endif %}</span>
+        <div class="font-serif text-white" style="font-size: 1.8rem; font-weight: 400; margin-bottom: .4rem;">Jacuzzi Fox Spas</div>
+        <p style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.72); line-height: 1.55;">{% if site.active_lang == 'en' %}5 seats, 63 jets, LED lighting, integrated speakers. Under the covered south-west terrace.{% else %}5 places, 63 jets, éclairage LED, sono intégrée. Couvert sur la terrasse sud-ouest.{% endif %}</p>
+      </div>
+    </div>
+
+    <!-- Sauna -->
+    <div class="bienetre-card">
+      <img src="/assets/images/wellness-sauna.jpg" alt="{% if site.active_lang == 'en' %}Inside the cedar barrel sauna{% else %}Intérieur du sauna barrel en bois{% endif %}" loading="lazy">
+      <div class="bienetre-overlay">
+        <span style="font-size: .68rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: #C97040; margin-bottom: .4rem;">{% if site.active_lang == 'en' %}Year-round{% else %}Toute l'année{% endif %}</span>
+        <div class="font-serif text-white" style="font-size: 1.8rem; font-weight: 400; margin-bottom: .4rem;">{% if site.active_lang == 'en' %}Barrel sauna{% else %}Sauna barrel{% endif %}</div>
+        <p style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.72); line-height: 1.55;">{% if site.active_lang == 'en' %}Outdoor cedar wood sauna, 4 persons. Traditional stone stove, Nordic atmosphere.{% else %}Sauna extérieur en bois de cèdre, 4 personnes. Poêle traditionnel à pierres, ambiance nordique.{% endif %}</p>
+      </div>
+    </div>
+
+    <!-- Hammam -->
+    <div class="bienetre-card">
+      <img src="/assets/images/wellness-hammam.jpg" alt="{% if site.active_lang == 'en' %}Hammam with multi-jet shower{% else %}Hammam avec douche multi-jets{% endif %}" loading="lazy">
+      <div class="bienetre-overlay">
+        <span style="font-size: .68rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: #C97040; margin-bottom: .4rem;">{% if site.active_lang == 'en' %}Bathroom 2{% else %}Salle de bain 2{% endif %}</span>
+        <div class="font-serif text-white" style="font-size: 1.8rem; font-weight: 400; margin-bottom: .4rem;">Hammam</div>
+        <p style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.72); line-height: 1.55;">{% if site.active_lang == 'en' %}Multi-jet steam shower with LED chromotherapy.{% else %}Cabine de douche multi-jets avec fonction vapeur et chromothérapie LED.{% endif %}</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── ÉQUIPEMENTS ── -->
+<section style="padding: 7rem 0; background: var(--color-bg);">
+  <div class="container">
+    <div class="grid lg:grid-cols-[1fr_2fr] gap-16 lg:gap-20 items-start">
+
+      <div class="sr">
+        <span class="section-label">{% if site.active_lang == 'en' %}In detail{% else %}Dans le détail{% endif %}</span>
+        <h2 class="section-title" style="margin-bottom: 1.5rem;">
+          {% if site.active_lang == 'en' %}Everything<br><em>included</em>{% else %}Tout<br><em>est inclus</em>{% endif %}
+        </h2>
+        <p style="font-size: .95rem; font-weight: 300; color: #7A7165; line-height: 1.75; margin-bottom: 2rem;">
+          {% if site.active_lang == 'en' %}Bed linen, towels, bath and pool towels, toiletries, final clean. Nothing to bring, nothing to add.{% else %}Linge de maison, serviettes, serviettes de bain et de piscine, produits d'accueil, ménage final. Rien à prévoir, rien à rajouter.{% endif %}
+        </p>
+        <a href="#booking" class="btn-primary">{% if site.active_lang == 'en' %}Check dates{% else %}Vérifier les dates{% endif %}</a>
+      </div>
+
+      <div class="sr grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style="gap: .5rem 2rem;">
+        {% for a in p.amenities %}
+        <div class="flex items-start gap-3" style="padding: .9rem 0; border-bottom: 1px solid var(--color-surface);">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background: var(--color-surface);">
+            <i data-lucide="{{ a.icon }}" style="width: 14px; height: 14px; color: var(--color-leaf, #4F6E40);"></i>
+          </div>
+          <span class="text-sm" style="font-weight: 400; color: #2A2824;">{% if site.active_lang == 'en' %}{{ a.label_en }}{% else %}{{ a.label }}{% endif %}</span>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</section>

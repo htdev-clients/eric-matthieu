@@ -1,9 +1,9 @@
-title: REPLACE_ME               # property name — used in <title> tags
-description: REPLACE_ME         # site meta description
+title: "Le Gîte de Lierneux"    # property name — used in <title> tags
+description: "Gîte 4 personnes avec piscine chauffée, jacuzzi extérieur, sauna tonneau et hammam. Propriété clôturée au cœur des Ardennes belges."
 baseurl: ""
 # Deployed URL — must match SITE_URL in wrangler.toml.
 # Update both when switching from the Cloudflare Pages domain to a custom domain.
-url: "https://REPLACE_ME.pages.dev"
+url: "https://eric-matthieu.pages.dev"
 
 markdown: kramdown
 

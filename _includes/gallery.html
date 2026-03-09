@@ -25,3 +25,31 @@
   CSS hint: id="gallery-container" needs overflow-x: auto (or overflow-x: scroll) to enable scrolling.
 {% endcomment %}
 {% assign t = site.data.i18n[site.active_lang] %}
+
+<section id="gallery" style="padding: 7rem 0; background: #1C3418;">
+  <div class="container">
+    <div class="text-center sr" style="margin-bottom: 3rem;">
+      <span class="section-label" style="color: rgba(255,255,255,.35);">{% if site.active_lang == 'en' %}Photos{% else %}Photos{% endif %}</span>
+      <h2 class="section-title" style="color: #fff;">
+        {% if site.active_lang == 'en' %}The property <em>in pictures</em>{% else %}Le gîte <em>en images</em>{% endif %}
+      </h2>
+    </div>
+  </div>
+
+  <!-- Mosaic grid — id="gallery-container" satisfies the JS hook; scrollGallery() is a no-op here -->
+  <div id="gallery-container" class="gallery-grid" style="overflow-x: auto;">
+    {% for image in site.data.property.gallery %}
+    <div class="g-item">
+      <img
+        src="{{ image.url }}"
+        alt="{% if site.active_lang == 'en' %}{{ image.alt_en }}{% else %}{{ image.alt }}{% endif %}"
+        loading="lazy"
+      >
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Hidden prev/next buttons (required by stub interface, grid doesn't scroll) -->
+  <button onclick="scrollGallery('left')"  class="sr-only" aria-hidden="true"></button>
+  <button onclick="scrollGallery('right')" class="sr-only" aria-hidden="true"></button>
+</section>

@@ -1,30 +1,30 @@
-name = "REPLACE_ME"             # e.g. "domaine-des-loups" — Cloudflare Pages project name
+name = "eric-matthieu"          # Cloudflare Pages project name
 compatibility_date = "2024-09-23"
 pages_build_output_dir = "_site"
 
 # Non-secret per-project config — safe to commit.
 # Secrets (API keys etc.) go in secrets.json (gitignored) → `npm run deploy:secrets`
 [vars]
-PROPERTY_ID     = "REPLACE_ME"  # unique slug per client, e.g. "domaine-des-loups-001"
-PROPERTY_NAME   = "REPLACE_ME"  # display name used in emails, e.g. "Domaine des Loups"
-OWNER_EMAIL     = "REPLACE_ME"  # owner's inbox for booking notifications
-PRICE_PER_NIGHT  = "0"          # REPLACE — must match pricing.per_night in property.yml
+PROPERTY_ID     = "gite-de-lierneux"
+PROPERTY_NAME   = "Le Gîte de Lierneux"
+OWNER_EMAIL     = "REPLACE_ME@example.com"
+PRICE_PER_NIGHT  = "500"
 # Max guests allowed — must match capacity.guests in _data/property.yml
-MAX_GUESTS       = "0"          # REPLACE
+MAX_GUESTS       = "4"
 # Max booking requests per email per 24 h (rate limiting). Set high for demos, low (3) for production.
 RATE_LIMIT_PER_EMAIL = "3"
 # Hours the owner has to respond — must match booking.response_hours in _data/property.yml
 RESPONSE_HOURS   = "24"
 # Deployed URL — must match url in _config.yml.
 # Update both when switching from the Cloudflare Pages domain to a custom domain.
-SITE_URL        = "https://REPLACE_ME.pages.dev"
+SITE_URL        = "https://eric-matthieu.pages.dev"
 # Sender address — use onboarding@resend.dev until client domain is verified with Resend
 FROM_EMAIL      = "onboarding@resend.dev"
 # Airbnb iCal export URL — get from Airbnb › Listing › Availability › Export Calendar.
 # Leave empty until provided by client. /api/availability returns [] when not set.
 ICAL_URL        = ""
 # Owner IBAN for bank transfer payments — shown in guest payment emails. Not a secret.
-OWNER_IBAN      = "REPLACE_ME"  # e.g. "BE00 0000 0000 0000"
+OWNER_IBAN      = "BE00 0000 0000 0000"   # REPLACE with real IBAN before go-live
 # Hours the guest has to make the bank transfer — shown in payment email (not server-enforced).
 PAYMENT_DEADLINE_HOURS = "24"
 # Ruby version for Jekyll builds on Cloudflare Pages

@@ -5,139 +5,230 @@
 # Array items use label_en / text_en / alt_en etc. for English variants.
 # ─────────────────────────────────────────────────────────
 
-name:       "REPLACE_ME"        # e.g. "Domaine des Loups"
-short_name: "REPLACE_ME"        # e.g. "Le Domaine" — used in hero h1
+name:       "Le Gîte de Lierneux"
+short_name: "Le Gîte"
 
 tagline:
-  fr: "REPLACE_ME"              # e.g. "Chalet & Forêt — Ardennes Belges"
-  en: "REPLACE_ME"
+  fr: "Piscine chauffée & Jacuzzi — Ardennes Belges"
+  en: "Heated Pool & Jacuzzi — Belgian Ardennes"
 
 subtitle:
-  fr: "REPLACE_ME"              # short line above hero title
-  en: "REPLACE_ME"
+  fr: "Escapade au cœur des Ardennes"
+  en: "A retreat in the heart of the Ardennes"
 
 description:
-  fr: "REPLACE_ME"              # 1–2 sentence property description
-  en: "REPLACE_ME"
+  fr: "Gîte 4 personnes avec piscine chauffée, jacuzzi extérieur, sauna tonneau et hammam. Propriété clôturée et autonome au cœur des Ardennes belges."
+  en: "4-person holiday home with heated pool, outdoor jacuzzi, barrel sauna and hammam. Fully enclosed, self-catering property in the heart of the Belgian Ardennes."
 
 intro:
-  fr: "REPLACE_ME"              # longer intro paragraph (presentation section)
-  en: "REPLACE_ME"
+  fr: >
+    Deux chambres, deux salles de bain, 4 personnes — et tout le reste dehors.
+    La piscine chauffée (8,7 m × 4,35 m), le jacuzzi 5 places avec sono et LEDs,
+    le sauna tonneau et le hammam font de ce gîte un endroit à part.
+    La forêt est à 100 mètres. La propriété est entièrement clôturée, l'entrée autonome.
+    Vous n'aurez besoin de rien d'autre.
+  en: >
+    Two bedrooms, two bathrooms, four guests — and the outdoors does the rest.
+    The heated pool (8.7 m × 4.35 m), 5-seat jacuzzi with speakers and LEDs,
+    barrel sauna and hammam make this a property unlike most.
+    The forest is 100 metres away. Fully enclosed grounds, autonomous entry.
+    You won't need anything else.
 
 footer_tagline:
-  fr: "REPLACE_ME"              # short evocative phrase for the footer
-  en: "REPLACE_ME"
+  fr: "Piscine · Jacuzzi · Sauna · Ardennes"
+  en: "Pool · Jacuzzi · Sauna · Ardennes"
 
 hero_image:     "/assets/images/hero.jpg"
 hero_image_alt:
-  fr: "REPLACE_ME"
-  en: "REPLACE_ME"
+  fr: "Piscine chauffée du Gîte de Lierneux en Ardennes belges"
+  en: "Heated pool at Le Gîte de Lierneux in the Belgian Ardennes"
 
 # ── Capacity ────────────────────────────────────────────
 capacity:
-  guests:    0      # REPLACE — must match MAX_GUESTS in wrangler.toml
-  bedrooms:  0      # REPLACE
-  bathrooms: 0      # REPLACE
-  area_m2:   0      # REPLACE
-  land_ha:   0      # REPLACE (omit or set to 0 if not applicable)
+  guests:    4      # must match MAX_GUESTS in wrangler.toml
+  bedrooms:  2
+  bathrooms: 2
+  area_m2:   0      # MISSING — ask client
+  land_ha:   0      # not applicable / unknown
 
 # ── Check-in / Check-out ─────────────────────────────────
-checkin_time:  "REPLACE_ME"     # e.g. "16h00"
-checkout_time: "REPLACE_ME"     # e.g. "11h00"
+checkin_time:  "MISSING"     # MISSING — ask client (e.g. "16h00")
+checkout_time: "MISSING"     # MISSING — ask client (e.g. "10h00")
 
 # ── Pricing ─────────────────────────────────────────────
 pricing:
-  per_night: 0      # REPLACE — must match PRICE_PER_NIGHT in wrangler.toml
+  per_night: 500
   currency:  "€"
   note:
-    fr: "REPLACE_ME"            # e.g. "Taxes & frais de ménage inclus"
-    en: "REPLACE_ME"
+    fr: "Tout inclus — linge, serviettes, charges, ménage final"
+    en: "All-inclusive — linen, towels, utilities, final clean"
 
 # ── Location ────────────────────────────────────────────
 location:
-  address_line1: "REPLACE_ME"   # street / lieu-dit
-  address_line2: "REPLACE_ME"   # postal code + city
+  address_line1: "MISSING"           # MISSING — ask client (street / lieu-dit)
+  address_line2: "4990 Lierneux"
   country:
-    fr: "REPLACE_ME"            # e.g. "Belgique"
-    en: "REPLACE_ME"            # e.g. "Belgium"
-  country_code:  "BE"           # ISO 3166-1 alpha-2
-  region:        "REPLACE_ME"   # e.g. "Ardennes Belges"
-  maps_url:      "REPLACE_ME"   # Google Maps URL
+    fr: "Belgique"
+    en: "Belgium"
+  country_code:  "BE"
+  region:        "Ardennes Belges"
+  maps_url:      "MISSING"           # MISSING — ask client (Google Maps URL)
 
 # ── Contact ─────────────────────────────────────────────
 contact:
-  owner_name: "REPLACE_ME"      # full name — used in CGV
-  email:      "REPLACE_ME"      # must match OWNER_EMAIL in wrangler.toml
-  phone:      "REPLACE_ME"      # e.g. "+32 475 00 00 00"
+  owner_name: "Éric Matthieu"
+  email:      "REPLACE_ME@example.com"
+  phone:      "MISSING"              # MISSING — ask client
 
 # ── Social ──────────────────────────────────────────────
 social:
-  instagram: "#"                # URL or "#" if not used
-  facebook:  "#"                # URL or "#" if not used
+  instagram: "#"                     # MISSING — ask client
+  facebook:  "#"                     # MISSING — ask client
 
 # ── Belgian Compliance ──────────────────────────────────
 compliance:
-  registration_number: "REPLACE_ME"   # e.g. "N° ETA-XXXX-XXXX"
+  registration_number: "MISSING"     # MISSING — ask client (N° ETA-XXXX-XXXX)
   registration_body:   "Commissariat Général au Tourisme de Wallonie"
-  payment_note:        "Paiement en ligne sécurisé via Stripe. Aucune donnée bancaire stockée."
+  payment_note:        "Virement bancaire. Acompte de 30% à la réservation, solde 30 jours avant l'arrivée."
+
+# ── Booking ─────────────────────────────────────────────
+booking:
+  response_hours: 24      # must match RESPONSE_HOURS in wrangler.toml
+  min_nights:     2       # REVIEW — confirm with client
+  deposit_eur:    600     # REVIEW — 600€ standard, 750€ for stays >7 nights
+  deposit_long_eur: 750   # REVIEW — stays >7 nights
 
 # ── Concept Sections ────────────────────────────────────
-# Two sections shown in presentation.html: interior (first) and exterior (last).
+# Two sections shown in presentation.html: interior (first) and exterior/wellness (last).
 concept:
   - number:      "01"
-    label:       "REPLACE_ME"         # e.g. "L'Intérieur"
-    label_en:    "REPLACE_ME"         # e.g. "The Interior"
-    title:       "REPLACE_ME"
-    title_en:    "REPLACE_ME"
+    label:       "L'Intérieur"
+    label_en:    "Inside"
+    title:       "Confort et calme"
+    title_en:    "Comfort and quiet"
     description: >
-      REPLACE_ME
+      Deux chambres bien séparées, deux salles de bain complètes.
+      La cuisine est ouverte et équipée, le salon lumineux.
+      Tout est pensé pour que vous n'ayez qu'à poser vos valises.
     description_en: >
-      REPLACE_ME
-    image:        "/assets/images/interior.jpg"
-    image_alt:    "REPLACE_ME"
-    image_alt_en: "REPLACE_ME"
+      Two well-separated bedrooms, two full bathrooms.
+      Open, fully equipped kitchen, bright living room.
+      Everything is ready so you can just arrive and unwind.
+    image:        "/assets/images/presentation-interior.jpg"
+    image2:       "/assets/images/presentation-pool.jpg"
+    image_alt:    "Chambre lumineuse du gîte de Lierneux"
+    image_alt_en: "Bright bedroom at Le Gîte de Lierneux"
     reverse:      false
     features:
-      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
-      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
-      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
-      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
+      - { icon: "bed-double",   text: "2 chambres",                     text_en: "2 bedrooms" }
+      - { icon: "bath",         text: "2 salles de bain complètes",     text_en: "2 full bathrooms" }
+      - { icon: "utensils",     text: "Cuisine équipée",                text_en: "Fully equipped kitchen" }
+      - { icon: "wifi",         text: "WiFi haut débit",                text_en: "High-speed WiFi" }
 
   - number:      "02"
-    label:       "REPLACE_ME"         # e.g. "L'Extérieur"
-    label_en:    "REPLACE_ME"         # e.g. "The Outdoors"
-    title:       "REPLACE_ME"
-    title_en:    "REPLACE_ME"
+    label:       "Le Bien-être"
+    label_en:    "Wellness"
+    title:       "Piscine, jacuzzi, sauna"
+    title_en:    "Pool, jacuzzi, sauna"
     description: >
-      REPLACE_ME
+      La piscine chauffée (8,7 m × 4,35 m) est ouverte de mai à septembre.
+      Le jacuzzi Fox Spas 5 places — 63 jets, LEDs, sono — est disponible toute l'année
+      sous la terrasse couverte. Le sauna tonneau et le hammam complètent l'ensemble.
     description_en: >
-      REPLACE_ME
-    image:        "/assets/images/exterior.jpg"
-    image_alt:    "REPLACE_ME"
-    image_alt_en: "REPLACE_ME"
+      The heated pool (8.7 m × 4.35 m) is open from May to September.
+      The Fox Spas 5-seat jacuzzi — 63 jets, LEDs, speakers — is available year-round
+      under the covered terrace. The barrel sauna and hammam round out the offering.
+    image:        "/assets/images/presentation-pool.jpg"
+    image_alt:    "Piscine chauffée vue depuis la terrasse du gîte"
+    image_alt_en: "Heated pool seen from the terrace"
     reverse:      true
     features:
-      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
-      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
-      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
-      - { icon: "REPLACE_ME", text: "REPLACE_ME", text_en: "REPLACE_ME" }
+      - { icon: "waves",          text: "Piscine chauffée 8,7 × 4,35 m (mai–sept)", text_en: "Heated pool 8.7 × 4.35 m (May–Sept)" }
+      - { icon: "sparkles",       text: "Jacuzzi 5 places, 63 jets, LEDs, sono",    text_en: "5-seat jacuzzi, 63 jets, LEDs, speakers" }
+      - { icon: "flame",          text: "Sauna tonneau 4 personnes",                text_en: "4-person barrel sauna" }
+      - { icon: "droplets",       text: "Hammam (salle de bain 2)",                 text_en: "Hammam (bathroom 2)" }
 
 # ── Amenities ───────────────────────────────────────────
 # Icon names from Lucide: https://lucide.dev/icons
 amenities:
-  - { icon: "REPLACE_ME", label: "REPLACE_ME", label_en: "REPLACE_ME" }
-  - { icon: "REPLACE_ME", label: "REPLACE_ME", label_en: "REPLACE_ME" }
-  - { icon: "REPLACE_ME", label: "REPLACE_ME", label_en: "REPLACE_ME" }
+  - { icon: "waves",        label: "Piscine chauffée",           label_en: "Heated pool" }
+  - { icon: "sparkles",     label: "Jacuzzi extérieur",          label_en: "Outdoor jacuzzi" }
+  - { icon: "flame",        label: "Sauna tonneau",              label_en: "Barrel sauna" }
+  - { icon: "droplets",     label: "Hammam",                     label_en: "Hammam" }
+  - { icon: "wifi",         label: "WiFi haut débit",            label_en: "High-speed WiFi" }
+  - { icon: "utensils",     label: "Cuisine équipée",            label_en: "Fully equipped kitchen" }
+  - { icon: "tv-2",         label: "TV connectée",               label_en: "Smart TV" }
+  - { icon: "key-round",    label: "Entrée autonome (boîte à clé)", label_en: "Autonomous entry (key box)" }
+  - { icon: "car",          label: "Parking privé",              label_en: "Private parking" }
+  - { icon: "shield",       label: "Propriété entièrement clôturée", label_en: "Fully enclosed property" }
+  - { icon: "dog",          label: "Petit chien accepté (sur demande)", label_en: "Small dog welcome (on request)" }
+  - { icon: "baby",         label: "Lit bébé disponible",        label_en: "Baby cot available" }  # REVIEW — confirm
 
 # ── Gallery ─────────────────────────────────────────────
-# Add as many images as needed. Filenames must match files in assets/images/.
+# Images copied to assets/images/ — filenames set during Step 2.
 gallery:
-  - url:        "/assets/images/gallery-1.jpg"
-    alt:        "REPLACE_ME"
-    alt_en:     "REPLACE_ME"
-    caption:    "REPLACE_ME"
-    caption_en: "REPLACE_ME"
+  - url:        "/assets/images/gallery-01-pool.jpg"
+    alt:        "Piscine chauffée vue du jardin en été"
+    alt_en:     "Heated pool seen from the garden in summer"
+    caption:    "La piscine"
+    caption_en: "The pool"
 
-# ── Booking ─────────────────────────────────────────────
-booking:
-  response_hours: 24   # Owner response time — must match RESPONSE_HOURS in wrangler.toml
+  - url:        "/assets/images/gallery-02-salon.jpg"
+    alt:        "Salon avec poêle et mur en pierre"
+    alt_en:     "Living room with wood stove and stone wall"
+    caption:    "Le salon"
+    caption_en: "The living room"
+
+  - url:        "/assets/images/gallery-03-terrasse.jpg"
+    alt:        "Terrasse en pierre naturelle"
+    alt_en:     "Natural stone terrace"
+    caption:    "La terrasse"
+    caption_en: "The terrace"
+
+  - url:        "/assets/images/gallery-04-chambre.jpg"
+    alt:        "Chambre avec décor bois clair"
+    alt_en:     "Bedroom with light wood decor"
+    caption:    "La chambre"
+    caption_en: "The bedroom"
+
+  - url:        "/assets/images/gallery-05-sauna-nuit.jpg"
+    alt:        "Entrée du sauna tonneau la nuit"
+    alt_en:     "Barrel sauna entrance at night"
+    caption:    "Le sauna"
+    caption_en: "The sauna"
+
+  - url:        "/assets/images/gallery-06-vue.jpg"
+    alt:        "Vue panoramique sur les Ardennes depuis le jardin"
+    alt_en:     "Panoramic view over the Ardennes from the garden"
+    caption:    "La vue"
+    caption_en: "The view"
+
+  - url:        "/assets/images/gallery-07-repas.jpg"
+    alt:        "Espace repas lumineux"
+    alt_en:     "Bright dining area"
+    caption:    "Espace repas"
+    caption_en: "Dining area"
+
+  - url:        "/assets/images/gallery-08-exterieur.jpg"
+    alt:        "Vue extérieure du gîte"
+    alt_en:     "Exterior view of the property"
+    caption:    "L'extérieur"
+    caption_en: "Outside"
+
+  - url:        "/assets/images/gallery-09-sauna-ete.jpg"
+    alt:        "Sauna tonneau dans le jardin en été"
+    alt_en:     "Barrel sauna in the garden in summer"
+    caption:    "Sauna en été"
+    caption_en: "Sauna in summer"
+
+  - url:        "/assets/images/gallery-10-jacuzzi.jpg"
+    alt:        "Jacuzzi Fox Spas éclairé"
+    alt_en:     "Fox Spas jacuzzi lit up"
+    caption:    "Le jacuzzi"
+    caption_en: "The jacuzzi"
+
+  - url:        "/assets/images/gallery-11-terrasse-pano.jpg"
+    alt:        "Terrasse avec vue panoramique sur le jardin"
+    alt_en:     "Terrace with panoramic view over the garden"
+    caption:    "Terrasse panoramique"
+    caption_en: "Panoramic terrace"

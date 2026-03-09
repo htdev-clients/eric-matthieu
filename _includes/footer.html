@@ -1,36 +1,6 @@
 {% comment %}
-  STUB — footer.html
-  Write this section from scratch for each client. Do NOT reference the demo site.
-
-  Required hooks (do not rename):
-    id="contact"              → footer/section wrapper
-    [data-lang-switch="fr"]   → FR language button (href injected by scripts.html)
-    [data-lang-switch="en"]   → EN language button (href injected by scripts.html)
-
-  Content available from property.yml:
-    {{ p.name }} {{ p.short_name }}
-    {{ p.footer_tagline[site.active_lang] }}
-    {{ p.contact.phone }} {{ p.contact.email }}
-    {{ p.social.instagram }} {{ p.social.facebook }}
-    {{ p.location.maps_url }}
-    {{ p.location.address_line1 }} {{ p.location.address_line2 }}
-    {{ p.location.country[site.active_lang] }}
-
-  Legal links (already computed):
-    {{ cgv_path }}      → /cgv  or  /en/cgv
-    {{ privacy_path }}  → /confidentialite  or  /en/confidentialite
-    {{ cookies_path }}  → /cookies  or  /en/cookies
-
-  Common footer elements:
-    - Link to #booking (CTA)
-    - Phone: <a href="tel:{{ p.contact.phone }}">
-    - Email: <a href="mailto:{{ p.contact.email }}">
-    - Instagram/Facebook: target="_blank" rel="noopener"
-    - Maps: <a href="{{ p.location.maps_url }}" target="_blank" rel="noopener">
-    - Copyright: © {{ 'now' | date: '%Y' }} {{ p.contact.owner_name }}
-    - Legal links: cgv_path, privacy_path, cookies_path
-
-  {{ t.footer.* }} → i18n strings for footer UI text (if applicable)
+  footer.html — Le Gîte de Lierneux
+  Required hooks: id="contact", [data-lang-switch="fr"], [data-lang-switch="en"]
 {% endcomment %}
 {% assign p = site.data.property %}
 {% assign t = site.data.i18n[site.active_lang] %}
@@ -43,3 +13,81 @@
   {% assign privacy_path = '/confidentialite' %}
   {% assign cookies_path = '/cookies' %}
 {% endif %}
+
+<footer id="contact" style="background: #1C3418; padding: 4rem 0 2rem;">
+  <div class="container">
+
+    <!-- Main grid -->
+    <div class="grid md:grid-cols-3 gap-10 md:gap-16 pb-10" style="border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 2rem;">
+
+      <!-- Brand -->
+      <div>
+        <div class="font-serif" style="font-size: 1.3rem; font-weight: 400; color: #fff; margin-bottom: .5rem;">
+          Le Gîte <em class="not-italic font-light" style="color: rgba(255,255,255,.4);">de Lierneux</em>
+        </div>
+        <p style="font-size: .78rem; font-weight: 300; color: rgba(255,255,255,.38); line-height: 1.7; margin-top: .8rem;">
+          {{ p.footer_tagline[site.active_lang] }}
+        </p>
+        <a href="#booking" class="inline-block mt-5" style="font-size: .72rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: #C97040; text-decoration: underline; text-underline-offset: 3px;">
+          {{ t.footer.book_cta }}
+        </a>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <div style="font-size: .68rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.32); margin-bottom: 1.2rem;">Navigation</div>
+        <ul class="footer-links" style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: .7rem;">
+          <li><a href="#presentation" style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.55); transition: color .2s;" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">{% if site.active_lang == 'en' %}The Property{% else %}Le gîte{% endif %}</a></li>
+          <li><a href="#amenities"    style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.55); transition: color .2s;" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">{% if site.active_lang == 'en' %}Wellness{% else %}Bien-être{% endif %}</a></li>
+          <li><a href="#gallery"      style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.55); transition: color .2s;" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">{% if site.active_lang == 'en' %}Photos{% else %}Galerie photos{% endif %}</a></li>
+          <li><a href="#booking"      style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.55); transition: color .2s;" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">{% if site.active_lang == 'en' %}Book{% else %}Réserver{% endif %}</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <div style="font-size: .68rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.32); margin-bottom: 1.2rem;">{{ t.footer.contact_heading }}</div>
+        {% if p.contact.email != 'MISSING' %}
+        <a href="mailto:{{ p.contact.email }}" class="flex items-center gap-3 mb-3" style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.55);">
+          <i data-lucide="mail" style="width: 14px; height: 14px; color: #C97040; flex-shrink: 0;"></i>
+          {{ p.contact.email }}
+        </a>
+        {% endif %}
+        {% if p.contact.phone != 'MISSING' %}
+        <a href="tel:{{ p.contact.phone | remove: ' ' }}" class="flex items-center gap-3 mb-3" style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.55);">
+          <i data-lucide="phone" style="width: 14px; height: 14px; color: #C97040; flex-shrink: 0;"></i>
+          {{ p.contact.phone }}
+        </a>
+        {% endif %}
+        {% if p.location.maps_url != 'MISSING' %}
+        <a href="{{ p.location.maps_url }}" target="_blank" rel="noopener" class="flex items-center gap-3" style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.55);">
+          <i data-lucide="map-pin" style="width: 14px; height: 14px; color: #C97040; flex-shrink: 0;"></i>
+          Lierneux, 4990 — {{ p.location.region }}
+        </a>
+        {% else %}
+        <div class="flex items-center gap-3" style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.55);">
+          <i data-lucide="map-pin" style="width: 14px; height: 14px; color: #C97040; flex-shrink: 0;"></i>
+          Lierneux, 4990 — {{ p.location.region }}
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="flex items-center justify-between flex-wrap gap-4">
+      <span style="font-size: .72rem; font-weight: 300; color: rgba(255,255,255,.5);">
+        &copy; {{ 'now' | date: '%Y' }} {{ p.contact.owner_name }}. {{ t.footer.rights }}.
+      </span>
+      <div class="flex items-center gap-5 flex-wrap">
+        <a href="{{ cgv_path }}"     style="font-size: .72rem; font-weight: 300; color: rgba(255,255,255,.35);">{{ t.footer.cgv }}</a>
+        <a href="{{ privacy_path }}" style="font-size: .72rem; font-weight: 300; color: rgba(255,255,255,.35);">{{ t.footer.privacy }}</a>
+        <a href="{{ cookies_path }}" style="font-size: .72rem; font-weight: 300; color: rgba(255,255,255,.35);">{{ t.footer.cookies }}</a>
+        <span style="color: rgba(255,255,255,.15);">|</span>
+        <a data-lang-switch="fr" href="/" style="font-size: .72rem; font-weight: 400; letter-spacing: .1em; color: {% if site.active_lang == 'fr' %}rgba(255,255,255,.65){% else %}rgba(255,255,255,.28){% endif %};">FR</a>
+        <a data-lang-switch="en" href="/en/" style="font-size: .72rem; font-weight: 400; letter-spacing: .1em; color: {% if site.active_lang == 'en' %}rgba(255,255,255,.65){% else %}rgba(255,255,255,.28){% endif %};">EN</a>
+      </div>
+    </div>
+
+  </div>
+</footer>

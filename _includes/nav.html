@@ -28,3 +28,45 @@
     {% assign logo_href = '/' %}
   {% endif %}
 {% endif %}
+
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+  <a href="{{ logo_href }}" class="font-serif text-xl font-medium text-white tracking-wide">
+    Le Gîte <em class="not-italic font-light" style="color: #C97040;">de Lierneux</em>
+  </a>
+
+  <ul class="hidden lg:flex items-center gap-10 list-none">
+    <li><a href="{{ hp }}#presentation" class="text-white/80 text-xs font-normal tracking-widest uppercase hover:text-white transition-colors">{% if site.active_lang == 'en' %}The Property{% else %}Le gîte{% endif %}</a></li>
+    <li><a href="{{ hp }}#amenities"    class="text-white/80 text-xs font-normal tracking-widest uppercase hover:text-white transition-colors">{% if site.active_lang == 'en' %}Wellness{% else %}Bien-être{% endif %}</a></li>
+    <li><a href="{{ hp }}#gallery"      class="text-white/80 text-xs font-normal tracking-widest uppercase hover:text-white transition-colors">{% if site.active_lang == 'en' %}Photos{% else %}Photos{% endif %}</a></li>
+    <li>
+      <a href="{{ hp }}#booking" class="text-xs font-medium tracking-widest uppercase text-white px-5 py-2 transition-colors" style="background: var(--color-accent);">
+        {% if site.active_lang == 'en' %}Book{% else %}Réserver{% endif %}
+      </a>
+    </li>
+    <li class="flex gap-3 border-l border-white/20 pl-6">
+      <a data-lang-switch="fr" href="/" class="text-xs tracking-widest uppercase {% if site.active_lang == 'fr' %}text-white/80{% else %}text-white/30 hover:text-white/60{% endif %} transition-colors">FR</a>
+      <a data-lang-switch="en" href="/en/" class="text-xs tracking-widest uppercase {% if site.active_lang == 'en' %}text-white/80{% else %}text-white/30 hover:text-white/60{% endif %} transition-colors">EN</a>
+    </li>
+  </ul>
+
+  <button id="open-menu-btn" class="lg:hidden flex flex-col gap-[5px] p-1 cursor-pointer bg-transparent border-0" aria-label="{{ t.nav.open_menu }}">
+    <span class="block w-6 h-[1.5px] bg-white"></span>
+    <span class="block w-6 h-[1.5px] bg-white"></span>
+    <span class="block w-6 h-[1.5px] bg-white"></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="menu-hidden fixed inset-0 z-[99] flex flex-col items-center justify-center gap-8" style="background: var(--color-primary);">
+  <button id="close-menu-btn" class="absolute top-6 right-6 text-white/60 text-xs tracking-widest uppercase font-sans bg-transparent border-0 cursor-pointer">
+    {% if site.active_lang == 'en' %}Close ✕{% else %}Fermer ✕{% endif %}
+  </button>
+  <a href="{{ hp }}#presentation" class="mobile-link font-serif text-3xl font-light text-white">{% if site.active_lang == 'en' %}The Property{% else %}Le gîte{% endif %}</a>
+  <a href="{{ hp }}#amenities"    class="mobile-link font-serif text-3xl font-light text-white">{% if site.active_lang == 'en' %}Wellness{% else %}Bien-être{% endif %}</a>
+  <a href="{{ hp }}#gallery"      class="mobile-link font-serif text-3xl font-light text-white">{% if site.active_lang == 'en' %}Photos{% else %}Photos{% endif %}</a>
+  <a href="{{ hp }}#booking"      class="mobile-link font-serif text-3xl font-light text-white">{% if site.active_lang == 'en' %}Book{% else %}Réserver{% endif %}</a>
+  <div class="flex gap-6 mt-4">
+    <a data-lang-switch="fr" href="/" class="text-xs tracking-widest uppercase {% if site.active_lang == 'fr' %}text-white/70{% else %}text-white/30{% endif %}">FR</a>
+    <a data-lang-switch="en" href="/en/" class="text-xs tracking-widest uppercase {% if site.active_lang == 'en' %}text-white/70{% else %}text-white/30{% endif %}">EN</a>
+  </div>
+</div>

@@ -1,3 +1,5 @@
+input/
+prompts/
 _site/
 .jekyll-cache/
 .jekyll-metadata
