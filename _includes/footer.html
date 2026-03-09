@@ -76,9 +76,14 @@
 
     <!-- Bottom bar -->
     <div class="flex items-center justify-between flex-wrap gap-4">
-      <span style="font-size: .72rem; font-weight: 300; color: rgba(255,255,255,.5);">
-        &copy; {{ 'now' | date: '%Y' }} {{ p.contact.owner_name }}. {{ t.footer.rights }}.
-      </span>
+      <div style="display: flex; flex-direction: column; gap: .3rem;">
+        <span style="font-size: .72rem; font-weight: 300; color: rgba(255,255,255,.5);">
+          &copy; {{ 'now' | date: '%Y' }} {{ p.contact.owner_name }}. {{ t.footer.rights }}.
+        </span>
+        <span style="font-size: .68rem; font-weight: 300; color: rgba(255,255,255,.28);">
+          {{ p.compliance.registration_number }} &middot; Agréé CGT Wallonie
+        </span>
+      </div>
       <div class="flex items-center gap-5 flex-wrap">
         <a href="{{ cgv_path }}"     style="font-size: .72rem; font-weight: 300; color: rgba(255,255,255,.35);">{{ t.footer.cgv }}</a>
         <a href="{{ privacy_path }}" style="font-size: .72rem; font-weight: 300; color: rgba(255,255,255,.35);">{{ t.footer.privacy }}</a>

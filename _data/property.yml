@@ -87,7 +87,7 @@ social:
 
 # ── Belgian Compliance ──────────────────────────────────
 compliance:
-  registration_number: "MISSING"     # MISSING — ask client (N° ETA-XXXX-XXXX)
+  registration_number: "N° ETA-XXXX-XXXX"   # REPLACE with real number before go-live
   registration_body:   "Commissariat Général au Tourisme de Wallonie"
   payment_note:        "Virement bancaire. Acompte de 30% à la réservation, solde 30 jours avant l'arrivée."
 
