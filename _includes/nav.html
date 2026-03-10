@@ -44,8 +44,8 @@
       </a>
     </li>
     <li class="flex gap-3 border-l border-white/20 pl-6">
-      <a data-lang-switch="fr" href="/" class="text-xs tracking-widest uppercase {% if site.active_lang == 'fr' %}text-white/80{% else %}text-white/30 hover:text-white/60{% endif %} transition-colors">FR</a>
-      <a data-lang-switch="en" href="/en/" class="text-xs tracking-widest uppercase {% if site.active_lang == 'en' %}text-white/80{% else %}text-white/30 hover:text-white/60{% endif %} transition-colors">EN</a>
+      <a data-lang-switch="fr" href="/" class="text-xs tracking-widest uppercase text-white transition-opacity {% if site.active_lang == 'fr' %}font-bold{% else %}font-normal hover:underline{% endif %}">FR</a>
+      <a data-lang-switch="en" href="/en/" class="text-xs tracking-widest uppercase text-white transition-opacity {% if site.active_lang == 'en' %}font-bold{% else %}font-normal hover:underline{% endif %}">EN</a>
     </li>
   </ul>
 

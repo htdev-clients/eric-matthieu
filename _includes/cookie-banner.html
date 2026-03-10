@@ -5,15 +5,15 @@
 {% assign cookies_path = '/cookies' %}
 {% if site.active_lang == 'en' %}{% assign cookies_path = '/en/cookies' %}{% endif %}
 
-<div id="cookie-banner" style="display:none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: var(--color-primary); padding: 1.25rem 2rem;" role="dialog" aria-label="{{ t.cookie.aria_label }}">
-  <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
-    <p style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.75); line-height: 1.6; flex: 1; min-width: 0;">
+<div id="cookie-banner" style="display:none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: var(--color-primary); padding: 1.25rem 1.5rem;" role="dialog" aria-label="{{ t.cookie.aria_label }}">
+  <div id="cookie-banner-inner" style="max-width: 1280px; margin: 0 auto;">
+    <p style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.75); line-height: 1.6;">
       {{ t.cookie.text }}
       <a href="{{ cookies_path }}" style="color: #C97040; text-decoration: underline; margin-left: .25rem;">{{ t.cookie.learn_more }}</a>
     </p>
-    <div class="flex gap-3 flex-shrink-0">
-      <button id="cookie-decline" style="font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); background: transparent; border: 1px solid rgba(255,255,255,.2); padding: .5rem 1.2rem; cursor: pointer; transition: border-color .2s;">{{ t.cookie.decline }}</button>
-      <button id="cookie-accept"  style="font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #fff; background: var(--color-accent); border: none; padding: .5rem 1.2rem; cursor: pointer; transition: background .2s;">{{ t.cookie.accept }}</button>
+    <div style="display: flex; gap: .75rem; flex-shrink: 0;">
+      <button id="cookie-decline" style="font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); background: transparent; border: 1px solid rgba(255,255,255,.2); padding: .55rem 1.2rem; cursor: pointer; transition: border-color .2s; white-space: nowrap;">{{ t.cookie.decline }}</button>
+      <button id="cookie-accept"  style="font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #fff; background: var(--color-accent); border: none; padding: .55rem 1.2rem; cursor: pointer; transition: background .2s; white-space: nowrap;">{{ t.cookie.accept }}</button>
     </div>
   </div>
 </div>

@@ -30,14 +30,14 @@
   <div class="hero-bg" id="hero-bg" style="background-image: url('{{ prop.hero_image }}');" role="img" aria-label="{{ prop.hero_image_alt[site.active_lang] }}"></div>
   <div class="hero-overlay"></div>
 
-  <div class="relative z-10 h-full flex flex-col items-start justify-end max-w-4xl hero-content">
-    <p class="hero-reveal" style="font-size: .72rem; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 1.2rem;">
-      Lierneux · Ardennes Belges · Belgique
+  <div class="relative z-10 h-full w-full flex flex-col items-start justify-end max-w-4xl hero-content">
+    <p class="hero-reveal" style="font-size: .72rem; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 1.2rem;">
+      {% if site.active_lang == 'en' %}Lierneux · Belgian Ardennes · Belgium{% else %}Lierneux · Ardennes Belges · Belgique{% endif %}
     </p>
     <h1 class="hero-reveal-delay font-serif text-white" style="font-size: clamp(3.2rem, 7vw, 6.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 1.8rem;">
       {% if site.active_lang == 'en' %}Your bubble<br><em>in the Ardennes</em>{% else %}Votre bulle<br><em>en Ardennes</em>{% endif %}
     </h1>
-    <p class="hero-reveal-delay" style="font-size: 1rem; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,.8); max-width: 500px; margin-bottom: 2.5rem;">
+    <p class="hero-reveal-delay" style="font-size: 1rem; font-weight: 500; line-height: 1.7; color: rgba(255,255,255,.92); max-width: 500px; margin-bottom: 2.5rem; text-shadow: 0 1px 10px rgba(0,0,0,.45);">
       {% if site.active_lang == 'en' %}
         Heated pool, 5-seat jacuzzi, barrel sauna and hammam — all within a fully enclosed green setting, 1h30 from Brussels.
       {% else %}
