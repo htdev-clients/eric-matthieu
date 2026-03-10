@@ -39,12 +39,9 @@
   <!-- Mosaic grid — id="gallery-container" satisfies the JS hook; scrollGallery() is a no-op here -->
   <div id="gallery-container" class="gallery-grid">
     {% for image in site.data.property.gallery %}
+    {% if site.active_lang == 'en' %}{% assign img_alt = image.alt_en %}{% else %}{% assign img_alt = image.alt %}{% endif %}
     <div class="g-item">
-      <img
-        src="{{ image.url }}"
-        alt="{% if site.active_lang == 'en' %}{{ image.alt_en }}{% else %}{{ image.alt }}{% endif %}"
-        loading="lazy"
-      >
+      {% picture gallery {{ image.url }} --img alt="{{ img_alt }}" loading="lazy" %}
     </div>
     {% endfor %}
   </div>

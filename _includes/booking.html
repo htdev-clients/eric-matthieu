@@ -93,7 +93,7 @@
             <input type="hidden" name="lang" value="{{ site.active_lang }}">
 
             <!-- Dates -->
-            <div class="grid grid-cols-2 gap-4" style="margin-bottom: 1rem;">
+            <div class="grid sm:grid-cols-2 gap-4" style="margin-bottom: 1rem;">
               <div style="display: flex; flex-direction: column; gap: .4rem;">
                 <label for="checkin" style="font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #7A7165;">{{ t.booking.label_checkin }}</label>
                 <input id="checkin" name="checkin" type="date" required class="form-input">
@@ -116,7 +116,7 @@
             </div>
 
             <!-- Name -->
-            <div class="grid grid-cols-2 gap-4" style="margin-bottom: 1rem;">
+            <div class="grid sm:grid-cols-2 gap-4" style="margin-bottom: 1rem;">
               <div style="display: flex; flex-direction: column; gap: .4rem;">
                 <label style="font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #7A7165;">{{ t.booking.label_firstname }}</label>
                 <input name="firstname" type="text" required autocomplete="given-name" class="form-input">
@@ -128,7 +128,7 @@
             </div>
 
             <!-- Email & Phone -->
-            <div class="grid grid-cols-2 gap-4" style="margin-bottom: 1rem;">
+            <div class="grid sm:grid-cols-2 gap-4" style="margin-bottom: 1rem;">
               <div style="display: flex; flex-direction: column; gap: .4rem;">
                 <label style="font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #7A7165;">{{ t.booking.label_email }}</label>
                 <input name="email" type="email" required autocomplete="email" class="form-input">

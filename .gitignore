@@ -14,6 +14,5 @@ node_modules/
 secrets.json
 assets/css/tailwind.css
 # jekyll-picture-tag generated responsive images (regenerated on each build)
-# Pattern: imagename-WIDTH-HASH.ext
+# Pattern: imagename-WIDTH-HASH.ext — only .webp; .jpg pattern removed (too broad, matches source files)
 assets/images/*-[0-9]*-[a-f0-9]*.webp
-assets/images/*-[0-9]*-[a-f0-9]*.jpg

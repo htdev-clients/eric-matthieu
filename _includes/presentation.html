@@ -119,8 +119,9 @@
 
       <!-- Images -->
       <div class="relative flex flex-col gap-4 sr">
-        <img class="pres-img-top" src="{{ interior.image }}" alt="{{ interior_alt }}">
-        <img class="pres-img-bot" src="{{ interior.image2 | default: p.hero_image }}" alt="{{ exterior_alt }}">
+        {% picture content {{ interior.image }} --img class="pres-img-top" alt="{{ interior_alt }}" %}
+        {% assign pres_img2 = interior.image2 | default: p.hero_image %}
+        {% picture content {{ pres_img2 }} --img class="pres-img-bot" alt="{{ exterior_alt }}" %}
         <div class="pres-image-accent"></div>
       </div>
 
@@ -141,11 +142,12 @@
       </p>
     </div>
   </div>
-  <div class="grid grid-cols-2 md:grid-cols-2" style="gap: 3px;">
+  <div class="grid grid-cols-1 sm:grid-cols-2" style="gap: 3px;">
 
     <!-- Piscine -->
+    {% if site.active_lang == 'en' %}{% assign alt_pool = "Heated pool with panoramic view" %}{% else %}{% assign alt_pool = "Piscine chauffée avec vue panoramique" %}{% endif %}
     <div class="bienetre-card">
-      <img src="/assets/images/wellness-pool.jpg" alt="{% if site.active_lang == 'en' %}Heated pool with panoramic view{% else %}Piscine chauffée avec vue panoramique{% endif %}" loading="lazy">
+      {% picture content /assets/images/wellness-pool.jpg --img alt="{{ alt_pool }}" loading="lazy" %}
       <div class="bienetre-overlay">
         <div class="font-serif text-white" style="font-size: 1.8rem; font-weight: 400; margin-bottom: .4rem;">{% if site.active_lang == 'en' %}Heated pool{% else %}Piscine chauffée{% endif %}</div>
         <p style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.72); line-height: 1.55;">{% if site.active_lang == 'en' %}Open May to September. 8.7 × 4.35 m, wooden deck, views over the Ardennes hills. Sunloungers and garden table.{% else %}Ouverte de mai à septembre. 8,7 × 4,35 m, terrasse en bois, vue sur les collines ardennaises. Transats et table de jardin.{% endif %}</p>
@@ -153,8 +155,9 @@
     </div>
 
     <!-- Jacuzzi -->
+    {% if site.active_lang == 'en' %}{% assign alt_jacuzzi = "Fox Spas jacuzzi lit at night" %}{% else %}{% assign alt_jacuzzi = "Jacuzzi Fox Spas éclairé la nuit" %}{% endif %}
     <div class="bienetre-card">
-      <img src="/assets/images/wellness-jacuzzi.jpg" alt="{% if site.active_lang == 'en' %}Fox Spas jacuzzi lit at night{% else %}Jacuzzi Fox Spas éclairé la nuit{% endif %}" loading="lazy">
+      {% picture content /assets/images/wellness-jacuzzi.jpg --img alt="{{ alt_jacuzzi }}" loading="lazy" %}
       <div class="bienetre-overlay">
         <div class="font-serif text-white" style="font-size: 1.8rem; font-weight: 400; margin-bottom: .4rem;">Jacuzzi Fox Spas</div>
         <p style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.72); line-height: 1.55;">{% if site.active_lang == 'en' %}5 seats, 63 jets, LED lighting, integrated speakers. Under the covered south-west terrace.{% else %}5 places, 63 jets, éclairage LED, sono intégrée. Couvert sur la terrasse sud-ouest.{% endif %}</p>
@@ -162,8 +165,9 @@
     </div>
 
     <!-- Sauna -->
+    {% if site.active_lang == 'en' %}{% assign alt_sauna = "Inside the cedar barrel sauna" %}{% else %}{% assign alt_sauna = "Intérieur du sauna barrel en bois" %}{% endif %}
     <div class="bienetre-card">
-      <img src="/assets/images/wellness-sauna.jpg" alt="{% if site.active_lang == 'en' %}Inside the cedar barrel sauna{% else %}Intérieur du sauna barrel en bois{% endif %}" loading="lazy">
+      {% picture content /assets/images/wellness-sauna.jpg --img alt="{{ alt_sauna }}" loading="lazy" %}
       <div class="bienetre-overlay">
         <div class="font-serif text-white" style="font-size: 1.8rem; font-weight: 400; margin-bottom: .4rem;">{% if site.active_lang == 'en' %}Barrel sauna{% else %}Sauna barrel{% endif %}</div>
         <p style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.72); line-height: 1.55;">{% if site.active_lang == 'en' %}Outdoor cedar wood sauna, 4 persons. Traditional stone stove, Nordic atmosphere.{% else %}Sauna extérieur en bois de cèdre, 4 personnes. Poêle traditionnel à pierres, ambiance nordique.{% endif %}</p>
@@ -171,8 +175,9 @@
     </div>
 
     <!-- Hammam -->
+    {% if site.active_lang == 'en' %}{% assign alt_hammam = "Hammam with multi-jet shower" %}{% else %}{% assign alt_hammam = "Hammam avec douche multi-jets" %}{% endif %}
     <div class="bienetre-card">
-      <img src="/assets/images/wellness-hammam.jpg" alt="{% if site.active_lang == 'en' %}Hammam with multi-jet shower{% else %}Hammam avec douche multi-jets{% endif %}" loading="lazy">
+      {% picture content /assets/images/wellness-hammam.jpg --img alt="{{ alt_hammam }}" loading="lazy" %}
       <div class="bienetre-overlay">
         <div class="font-serif text-white" style="font-size: 1.8rem; font-weight: 400; margin-bottom: .4rem;">Hammam</div>
         <p style="font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.72); line-height: 1.55;">{% if site.active_lang == 'en' %}Multi-jet steam shower with LED chromotherapy.{% else %}Cabine de douche multi-jets avec fonction vapeur et chromothérapie LED.{% endif %}</p>
