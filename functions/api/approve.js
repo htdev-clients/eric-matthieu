@@ -85,7 +85,8 @@ export async function onRequestPost(context) {
 
   if (action === 'approve') {
     const total          = calcTotal(nights, parseFloat(env.PRICE_PER_NIGHT));
-    const paymentRef     = 'RSV-' + id.slice(0, 8).toUpperCase();
+    const [cy, cm, cd]   = booking.checkin.split('-');
+    const paymentRef     = `${booking.lastname.toUpperCase()} ${booking.firstname.toUpperCase()} - ${cd}/${cm}/${cy}`;
     const ownerIban      = env.OWNER_IBAN || '[IBAN non configuré]';
     const paymentHours   = parseInt(env.PAYMENT_DEADLINE_HOURS, 10) || 24;
 
