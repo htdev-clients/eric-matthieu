@@ -1,5 +1,7 @@
 input/
 prompts/
+.wrangler/
+CLAUDE.md
 _site/
 .jekyll-cache/
 .jekyll-metadata
