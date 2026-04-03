@@ -35,4 +35,4 @@ RUBY_VERSION    = "3.2.10"
 [[d1_databases]]
 binding       = "DB"
 database_name = "holiday-rentals-db"
-database_id   = "YOUR_D1_DATABASE_ID_HERE"
+database_id   = "febe74a2-262a-41ef-a6a5-446ae0d488f8"
