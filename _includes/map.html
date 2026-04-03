@@ -2,15 +2,6 @@
 
 <!-- ── LOCALISATION ── -->
 <section id="localisation" style="background: var(--color-surface);">
-  <div class="container" style="padding-top: 5rem; padding-bottom: 3rem;">
-    <div class="sr" style="margin-bottom: 2rem;">
-      <span class="section-label">{% if site.active_lang == 'en' %}Location{% else %}Localisation{% endif %}</span>
-      <h2 class="section-title">
-        {% if site.active_lang == 'en' %}Find us<br><em>in the Ardennes</em>{% else %}Nous trouver<br><em>en Ardennes</em>{% endif %}
-      </h2>
-    </div>
-  </div>
-
   {% if p.location.maps_embed_url %}
   <div style="width: 100%; height: 420px;">
     <iframe

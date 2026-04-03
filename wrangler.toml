@@ -28,7 +28,7 @@ OWNER_IBAN      = "BE00 0000 0000 0000"   # REPLACE with real IBAN before go-liv
 # Hours the guest has to make the bank transfer — shown in payment email (not server-enforced).
 PAYMENT_DEADLINE_HOURS = "24"
 # Ruby version for Jekyll builds on Cloudflare Pages
-RUBY_VERSION    = "3.2.10"
+RUBY_VERSION    = "3.2.2"
 
 # D1 database binding — shared across all client projects.
 # Run `wrangler d1 create holiday-rentals-db` once, then paste the database_id here.
